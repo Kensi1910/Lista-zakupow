@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/android_gridview_example"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.example.lenovo.myapplication.GridViewImageTextActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="450dp">
+
+        <GridView
+            android:id="@+id/grid_view_image_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnWidth="180dp"
+            android:gravity="center"
+            android:numColumns="auto_fit" />
+    </LinearLayout>
+
+
+    <Button
+
+        android:id="@+id/dodajKategorie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:onClick="ButtonAddNewCategory"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="50dp"
+        android:text="Dodaj Nową Kategorie" />
+</LinearLayout>
+

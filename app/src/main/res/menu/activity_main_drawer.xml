@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/Utworz_liste"
+            android:icon="@drawable/plus_kwadrat_icon"
+            android:title="Utwórz nową liste" />
+
+        <item
+            android:id="@+id/lista_zakupow"
+            android:icon="@drawable/lista_icon"
+            android:title="Listy Zakupów" />
+        <item
+            android:id="@+id/edytuj_liste"
+            android:icon="@drawable/edytuj1_icon"
+            android:title="Edytuj Liste" />
+        <item
+            android:id="@+id/usun_listy"
+            android:icon="@drawable/usun_icon"
+            android:title="Usun listy" />
+    </group>
+
+    <item android:title="Kontakt">
+        <menu>
+
+            <item
+                android:id="@+id/wyslij"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Wyslij" />
+            <item
+                android:id="@+id/o_autorach"
+                android:icon="@drawable/o_autorach2_icon"
+                android:title="O autorach" />
+        </menu>
+    </item>
+
+</menu>
