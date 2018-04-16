@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import static com.example.lenovo.myapplication.MainActivity.baza;
+
 /**
  * Created by kensi on 18/03/2018.
  */
@@ -58,6 +60,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         Toast.makeText(context, mData.get(position).getName(), Toast.LENGTH_SHORT).show();
                         switch (menuItem.getItemId()) {
                             case R.id.action_change_name_list:
+                                final String oldName = mData.get(position).getName();
                             //    Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show();
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                 LayoutInflater inflater = LayoutInflater.from(context);
@@ -68,7 +71,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 String name = nameEditText.getText().toString();
-                                                changeNameItem(name,position);
+                                                updateListaName(name,oldName,position);
+                                                //  changeNameItem(name,position);
 
                                             }
                                         })
@@ -83,7 +87,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                             case R.id.action_delete_list:
                                 Toast.makeText(context, "Usunieto liste " + mData.get(position).getName(), Toast.LENGTH_SHORT).show();
-                                removeItem(position);
+                                //removeItem(position);
+                                deleteLista(position);
                                 break;
                         }
 
@@ -102,6 +107,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mData.size();
     }
 
+    private void updateListaName(String name, String oldName, int position) {
+        Lista l = mData.get(position);
+        l.setName(name);
+        baza.updateLista(l, oldName);
+        mData.set(position,l);
+        notifyItemChanged(position);
+    }
+    private void deleteLista(int position) {
+        baza.deleteLista(mData.get(position));
+        mData.remove(position);
+       // notifyItemRemoved(position);
+        notifyDataSetChanged();
+    }
+    public void deleteListaAll() {
+        baza.deleteListaAll();
+    }
     //Usuwa liste
     public void removeItem(int position) {
         mData.remove(position);

@@ -19,9 +19,9 @@ public class FormulaAddNewCategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formula_add_new_category);
-        addListenerOnButton();
+   //     addListenerOnButton();
     }
-
+/*
     public void addListenerOnButton() {
         button_send = (Button) findViewById(R.id.add_new_category_formula_button);
         category_name = (EditText) findViewById(R.id.name_new_category_formula_edit_text);
@@ -35,7 +35,7 @@ public class FormulaAddNewCategoryActivity extends AppCompatActivity {
 
                     String listNameString = category_name.getText().toString();
                     Intent intent = new Intent();
-                    intent.putExtra("Nazwa", listNameString);
+                 //   intent.putExtra("Nazwa", listNameString);
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                 }
@@ -47,4 +47,5 @@ public class FormulaAddNewCategoryActivity extends AppCompatActivity {
     public static Intent makeIntent(Context context) {
         return new Intent(context, AddListActivity.class);
     }
+    */
 }

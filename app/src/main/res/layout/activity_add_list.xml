@@ -20,10 +20,21 @@
             android:id="@+id/button_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
             android:background="@color/colorAccent"
             android:text="Dodaj" />
+
+        <Button
+            android:id="@+id/buton_wypisz_lista_baza"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wypisz" />
+
+        <TextView
+            android:id="@+id/tv_wypis_all_lista_baza"
+            android:layout_width="match_parent"
+            android:layout_height="180dp" />
 
 
 </LinearLayout>

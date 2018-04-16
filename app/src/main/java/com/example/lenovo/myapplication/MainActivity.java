@@ -37,14 +37,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+   public static Baza baza;
     private static final int REQUEST_CODE_GETMESSAGE = 1423;
-    ArrayList<Lista> lstLista;
+    List<Lista> lstLista;
     String newName;
     String newData;
+    String newData2;
     private RecyclerView myrecyclerview;
     private RecyclerViewAdapter mAdapter;
 
@@ -56,6 +59,9 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        baza = new Baza(getApplicationContext());
+        lstLista = new ArrayList<>();
+        lstLista = MainActivity.baza.getAllLista();
 
         //Przycisk dodajacy nowa liste
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -81,10 +87,10 @@ public class MainActivity extends AppCompatActivity
         myrecyclerview = (RecyclerView) findViewById(R.id.new_list_recyclerview);
         myrecyclerview.setLayoutManager(new LinearLayoutManager(this));
         myrecyclerview.setItemAnimator(new DefaultItemAnimator());
-        lstLista = new ArrayList<>();
         mAdapter = new RecyclerViewAdapter(lstLista, this);
         myrecyclerview.setAdapter(mAdapter);
 
+        mAdapter.notifyDataSetChanged();
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setElevation(0);
@@ -138,6 +144,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.usun_listy) {
             removeAllLists();
+            baza.deleteListaAll();
             Toast.makeText(this, "Wszystkie listy zostały usuniete",Toast.LENGTH_LONG).show();
         } else if (id == R.id.wyslij) {
 
@@ -166,11 +173,11 @@ public class MainActivity extends AppCompatActivity
         switch (requestCode) {
             case REQUEST_CODE_GETMESSAGE:
                 if (resultCode == Activity.RESULT_OK) {
-                    newName = data.getStringExtra("Nazwa");
-                    Date currentDate = new Date();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                    newData= dateFormat.format(currentDate);
-                    addNewList(new Lista(newName, newData));
+                    newName = data.getStringExtra("key_lista_name");
+                    newData = data.getStringExtra("key_lista_data_u");
+                    newData2 = data.getStringExtra("key_lista_data_p");
+
+                    addNewList(new Lista(newName, newData, newData2));
                 }
         }
     }
