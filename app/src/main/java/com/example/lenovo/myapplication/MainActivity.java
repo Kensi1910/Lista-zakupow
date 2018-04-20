@@ -42,7 +42,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-   public static Baza baza;
+    public static Baza baza;
     private static final int REQUEST_CODE_GETMESSAGE = 1423;
     List<Lista> lstLista;
     String newName;
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        baza = new Baza(getApplicationContext());
+        baza = new Baza(this);
         lstLista = new ArrayList<>();
         lstLista = MainActivity.baza.getAllLista();
 

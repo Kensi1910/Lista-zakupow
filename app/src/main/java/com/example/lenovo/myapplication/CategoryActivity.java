@@ -46,7 +46,7 @@ public class CategoryActivity extends AppCompatActivity {
     private Baza baza;
     private RecyclerView recyclerViewCategory;
     private RecyclerViewAdapterCategory mAdapter;
-    Drawable drawable1,drawable2,drawable3,drawable4,drawable5,drawable6,drawable7,drawable8,drawable9,drawable10;
+  //  Drawable drawable1,drawable2,drawable3,drawable4,drawable5,drawable6,drawable7,drawable8,drawable9,drawable10;
     byte[] foto;
 
     private Button pickImageButton;
@@ -54,6 +54,7 @@ public class CategoryActivity extends AppCompatActivity {
     private TextView opis_zmien_zdjecie;
     final int REQUEST_CODE_GALLERY = 999;
     private static final int PICK_IMAGE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,12 +97,7 @@ public class CategoryActivity extends AppCompatActivity {
         byte[] buffer= out.toByteArray();
         return buffer;
     }
-    private void initStartKategorie(Drawable drawable, String name) {
-        Drawable d = drawable;
-        foto = imageViewToByte(d);
-        // foto = null;
-        baza.createCategoryStart(new Category(name,foto));
-    }
+
     private void updateKategoriaName(String name, String oldName, int position) {
         Category c = lstCategory.get(position);
         c.setName(name);
@@ -209,14 +205,6 @@ public class CategoryActivity extends AppCompatActivity {
                 });
         dialog.show();
 
-    }
-
-    public static byte[] imageViewToByte(ImageView image) {
-        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        return byteArray;
     }
 
     @Override

@@ -37,6 +37,7 @@ public class Baza extends SQLiteOpenHelper {
     // Table Names
     private static final String TABLE_KATEGORIA = "kategoria";
     private static final String TABLE_LISTA = "lista";
+    private static final String TABLE_PRODUKTY = "produkty";
 
 
     // Common column names
@@ -47,14 +48,25 @@ public class Baza extends SQLiteOpenHelper {
     private static final String KEY_KATEGORIA = "kategoria_nazwa";
     private static final String KEY_LISTA = "lista_nazwa";
     private static final String KEY_IMAGE = "kategoria_image";
+    private static final String KEY_PRODUKT = "produkt_nazwa";
+    private static final String KEY_CENA_MIN = "cena_min";
+    private static final String KEY_CENA_MAX = "cena_max";
+    private static final String KEY_ID_KATEGORIA = "id_kategoria";
 
      String CREATE_TABLE_KATEGORIA = "CREATE TABLE " + TABLE_KATEGORIA + "("
           + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_KATEGORIA
-          + " TEXT," + KEY_IMAGE + " BLOB" + ")";
+          + " TEXT NOT NULL," + KEY_IMAGE + " BLOB NOT NULL" + ")";
 
     String CREATE_TABLE_LISTA = "CREATE TABLE " + TABLE_LISTA + "("
-            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_LISTA + " TEXT,"
-            + KEY_CREATED_AT + " TEXT," + KEY_PRZYPOMNIENIE + " TEXT" + ")";
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_LISTA + " TEXT NOT NULL,"
+            + KEY_CREATED_AT + " TEXT NOT NULL," + KEY_PRZYPOMNIENIE + " TEXT NOT NULL" + ")";
+
+    String CREATE_TABLE_PRODUKTY = "CREATE TABLE " + TABLE_PRODUKTY + "("
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_PRODUKT + " TEXT NOT NULL,"
+            + KEY_CENA_MIN + " FLOAT NOT NULL," + KEY_CENA_MAX + " FLOAT NOT NULL" + ")";
+        //    + KEY_ID_KATEGORIA + " INTEGER," + "FOREIGN KEY " + KEY_ID_KATEGORIA + " REFERENCES "
+        //    + TABLE_KATEGORIA + "(" + KEY_ID + ")";
+
 
     Drawable drawable1,drawable2,drawable3,drawable4,drawable5,drawable6,drawable7,drawable8,drawable9,drawable10;
     byte[] foto;
@@ -75,6 +87,15 @@ public class Baza extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_TABLE_KATEGORIA);
         db.execSQL(CREATE_TABLE_LISTA);
+        db.execSQL(CREATE_TABLE_PRODUKTY);
+        createProduktyStart(new Produkt("Produkt1", 1.2f, 4.5f), db);
+        createProduktyStart(new Produkt("Produkt2", 1.2f, 4.5f), db);
+        createProduktyStart(new Produkt("Produkt3", 1.2f, 4.5f), db);
+        createProduktyStart(new Produkt("Produkt4", 1.2f, 4.5f), db);
+        createProduktyStart(new Produkt("Produkt5", 1.2f, 4.5f), db);
+        createProduktyStart(new Produkt("Produkt6", 1.2f, 4.5f), db);
+
+
         createListaStart(new Lista("Lista startowa","12-04-2017","12-04-2017"),db);
 
 
@@ -102,7 +123,7 @@ public class Baza extends SQLiteOpenHelper {
 
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_KATEGORIA);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LISTA);
-
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUKTY);
         onCreate(db);
     }
 
@@ -123,6 +144,9 @@ public class Baza extends SQLiteOpenHelper {
         return category_id;
     }
 
+    /**
+     *   Tworzenie kategorii, startowe kategorie
+     */
     private void createCategoryStart(Category category, SQLiteDatabase db) {
 
         ContentValues values = new ContentValues();
@@ -132,14 +156,6 @@ public class Baza extends SQLiteOpenHelper {
         // insert row
         db.insert(TABLE_KATEGORIA, null, values);
 
-    }
-
-    private static byte[] imageViewToByte(Drawable drawable) {
-        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-        byte[] buffer= out.toByteArray();
-        return buffer;
     }
     public void createCategoryStart(Category category) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -154,10 +170,26 @@ public class Baza extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     *     zamiana zdjecia na format byte[] potrzeby do zapisu do bazy
+     */
+    private static byte[] imageViewToByte(Drawable drawable) {
+        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        byte[] buffer= out.toByteArray();
+        return buffer;
+    }
+
+
+
     private void initStartKategorie(Drawable drawable, String name, SQLiteDatabase db) {
         Drawable d = drawable;
         foto = imageViewToByte(d);
         createCategoryStart(new Category(name,foto),db);
+    }
+    private void initStartProdukty(String name,Float cena_min, Float cena_max, SQLiteDatabase db) {
+        createProduktyStart(new Produkt(name, cena_min, cena_max),db);
     }
     /**
      *   Tworzenie list
@@ -219,6 +251,51 @@ public class Baza extends SQLiteOpenHelper {
         db.close();
         return lista_id;
     }
+
+
+    public long createProdukt(Produkt produkt) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_PRODUKT, produkt.getName());
+        values.put(KEY_CENA_MIN, produkt.getCena_min());
+        values.put(KEY_CENA_MAX, produkt.getCena_max());
+     //   values.put(KEY_ID_KATEGORIA, produkt.getId_kategoria());
+
+        // insert row
+        long produkt_id = db.insert(TABLE_PRODUKTY, null, values);
+
+        db.close();
+        return produkt_id;
+    }
+
+    private void createProduktyStart(Produkt produkt, SQLiteDatabase db) {
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_PRODUKT, produkt.getName());
+        values.put(KEY_CENA_MIN, produkt.getCena_min());
+        values.put(KEY_CENA_MAX, produkt.getCena_max());
+     //   values.put(KEY_ID_KATEGORIA, produkt.getId_kategoria());
+
+        // insert row
+        db.insert(TABLE_PRODUKTY, null, values);
+
+    }
+    public void createProduktyStart(Produkt produkt) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_PRODUKT, produkt.getName());
+        values.put(KEY_CENA_MIN, produkt.getCena_min());
+        values.put(KEY_CENA_MAX, produkt.getCena_max());
+       // values.put(KEY_ID_KATEGORIA, produkt.getId_kategoria());
+
+        // insert row
+        db.insert(TABLE_PRODUKTY, null, values);
+
+        db.close();
+
+    }
     /**
      *  get single category, the last
      */
@@ -266,6 +343,30 @@ public class Baza extends SQLiteOpenHelper {
         return lst;
     }
 
+    /**
+     *  get single lista, the last
+     */
+    public Produkt getProdukt() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_PRODUKTY;
+        //   Log.e(LOG, selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToLast();
+
+        Produkt pdt = new Produkt();
+        pdt.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+        pdt.setName(c.getString(c.getColumnIndex(KEY_PRODUKT)));
+        pdt.setCena_min(c.getFloat(c.getColumnIndex(KEY_CENA_MIN)));
+        pdt.setCena_max(c.getFloat(c.getColumnIndex(KEY_CENA_MAX)));
+    //    pdt.setId_kategoria(c.getInt(c.getColumnIndex(KEY_ID_KATEGORIA)));
+
+        c.close();
+        return pdt;
+    }
     /**
  * getting all katogoria
  * */
@@ -327,6 +428,39 @@ public class Baza extends SQLiteOpenHelper {
         c.close();
         return lstLista;
     }
+
+
+    /**
+     * getting all produkt
+     * */
+
+    public List<Produkt> getAllProdukt() {
+        List<Produkt> lstProdukt = new ArrayList<Produkt>();
+        String selectQuery = "SELECT * FROM " + TABLE_PRODUKTY;
+        // Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                Produkt pdt = new Produkt();
+                pdt.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+                pdt.setName(c.getString(c.getColumnIndex(KEY_PRODUKT)));
+                pdt.setCena_min(c.getFloat(c.getColumnIndex(KEY_CENA_MIN)));
+                pdt.setCena_max(c.getFloat(c.getColumnIndex(KEY_CENA_MAX)));
+             //   pdt.setId_kategoria(c.getInt(c.getColumnIndex(KEY_ID_KATEGORIA)));
+
+                // adding category list
+                lstProdukt.add(pdt);
+            } while (c.moveToNext());
+        }
+
+        c.close();
+        return lstProdukt;
+    }
     /**
  * Updating a katogoria
  */
@@ -356,6 +490,23 @@ public class Baza extends SQLiteOpenHelper {
                 new String[] { String.valueOf(name) });
     }
 
+
+    /**
+     * Updating a lista
+     */
+    public int updateProdukt(Produkt produkt, String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_PRODUKT, produkt.getName());
+        values.put(KEY_CENA_MIN, produkt.getCena_min());
+        values.put(KEY_CENA_MAX, produkt.getCena_max());
+        //   values.put(KEY_ID_KATEGORIA, produkt.getId_kategoria());
+
+        return db.update(TABLE_PRODUKTY, values, KEY_PRODUKT + " = ?",
+                new String[] { String.valueOf(name) });
+    }
+
     /**
  * Deleting a kategoria
  */
@@ -368,7 +519,7 @@ public class Baza extends SQLiteOpenHelper {
     }
 
     /**
-     * Deleting a kategoria
+     * Deleting a lista
      */
     public void deleteLista(Lista lista) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -381,6 +532,17 @@ public class Baza extends SQLiteOpenHelper {
     public void deleteListaAll() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_LISTA, null, null);
+    }
+
+    /**
+     * Deleting a produkt
+     */
+    public void deleteProdukt(Produkt produkt) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TABLE_PRODUKTY, KEY_PRODUKT + " = ?",
+                new String[] { String.valueOf(produkt.getName()) });
+        db.close();
     }
     // closing database
 
@@ -424,6 +586,24 @@ public class Baza extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM lista", null);
+        StringBuilder sb = new StringBuilder();
+        if (cursor.moveToFirst()) {
+            do {
+                sb.append(cursor.getInt(0));
+                sb.append(") ");
+                sb.append(cursor.getString(1))/* + String.valueOf(cursor.getInt(0)) +". " +cursor.getString(1) +*/ ;
+                sb.append(",");
+                sb.append("\n");
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return sb;
+    }
+
+    public StringBuilder WypiszProdukt() {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM produkty", null);
         StringBuilder sb = new StringBuilder();
         if (cursor.moveToFirst()) {
             do {
