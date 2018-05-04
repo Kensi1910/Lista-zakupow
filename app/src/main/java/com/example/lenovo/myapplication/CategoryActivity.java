@@ -46,7 +46,6 @@ public class CategoryActivity extends AppCompatActivity {
     private Baza baza;
     private RecyclerView recyclerViewCategory;
     private RecyclerViewAdapterCategory mAdapter;
-  //  Drawable drawable1,drawable2,drawable3,drawable4,drawable5,drawable6,drawable7,drawable8,drawable9,drawable10;
     byte[] foto;
 
     private Button pickImageButton;
@@ -286,6 +285,7 @@ public class CategoryActivity extends AppCompatActivity {
                     newCategoryName = data.getStringExtra("key_category_name");
                     newCategoryImage = data.getByteArrayExtra("key_category_image");
                     addNewCategory(new Category(newCategoryName, newCategoryImage));
+
                 }
         }
     }

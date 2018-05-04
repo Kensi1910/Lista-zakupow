@@ -26,10 +26,12 @@
         <activity android:name=".GridViewImageTextActivity" />
         <activity android:name=".FormulaAddNewCategoryActivity" />
         <activity android:name=".CategoryActivity" />
-        <activity android:name=".AddCategory"
+        <activity
+            android:name=".AddCategory"
             android:label="Food List"
             android:parentActivityName=".CategoryActivity" />
-        <activity android:name=".ChangePictureCategoryActivity"></activity>
+        <activity android:name=".ChangePictureCategoryActivity" />
+        <activity android:name=".ProductListActivity"></activity>
     </application>
 
 </manifest>

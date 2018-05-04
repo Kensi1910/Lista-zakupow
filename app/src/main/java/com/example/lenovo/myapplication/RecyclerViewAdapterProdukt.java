@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.lenovo.myapplication.MainActivity.baza;
@@ -25,6 +26,11 @@ public class RecyclerViewAdapterProdukt extends RecyclerView.Adapter<RecyclerVie
 
     private Context mContext;
     private List<Produkt> mData;
+    private List<Lista> mLista;
+    private List<AddedProdukt> mAddedProdukt;
+    AddedProdukt addedProdukt;
+    public List<Produkt> lstProdukt = new ArrayList<>();
+    Lista lista;
     private EditText nameEditText;
 
     public RecyclerViewAdapterProdukt(Context mContext, List<Produkt> mData) {
@@ -44,6 +50,9 @@ public class RecyclerViewAdapterProdukt extends RecyclerView.Adapter<RecyclerVie
     public void onBindViewHolder(final MyRecycleView holder, final int position) {
 
         final int pos = position;
+        final String name_listy = MainActivity.getListName();
+      //  final int id_listy = MainActivity.getListId();
+        final String id_listy = MainActivity.getListId();
         holder.tvNazwa.setText(mData.get(position).getName());
         holder.chkSelected.setChecked(mData.get(position).isSelected());
         holder.chkSelected.setTag(mData.get(position));
@@ -56,10 +65,15 @@ public class RecyclerViewAdapterProdukt extends RecyclerView.Adapter<RecyclerVie
                 contact.setSelected((cb.isChecked()));
                 mData.get(pos).setSelected(cb.isChecked());
 
+                int id_produktu = mData.get(pos).getId();
+                int id_listyy = Integer.parseInt(id_listy);
+
                 Toast.makeText(
                         v.getContext(),
-                        "Clicked on Checkbox: " + cb.getText() + " is " + cb.isChecked(), Toast.LENGTH_LONG).show();
+                        "Clicked on Checkbox: " + cb.getText() + " produkt: " + id_produktu + "Nazwa listy: " + name_listy + "id listy: " + id_listyy, Toast.LENGTH_LONG).show();
 
+                baza.createListaProdoktow(id_listyy,id_produktu);
+                AddProductActivity.produktyList2.add(baza.getProduktByID(id_produktu));
             }
         });
 

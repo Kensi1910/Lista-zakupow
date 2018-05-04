@@ -17,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.PopupMenu;
 
 import android.view.View;
@@ -40,17 +41,19 @@ import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ItemClickListener {
 
     public static Baza baza;
     private static final int REQUEST_CODE_GETMESSAGE = 1423;
-    List<Lista> lstLista;
+    public List<Lista> lstLista;
     String newName;
     String newData;
     String newData2;
+    LinearLayout item_list;
     private RecyclerView myrecyclerview;
     private RecyclerViewAdapter mAdapter;
-
+    private static String listName;
+    private static String lstId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +93,7 @@ public class MainActivity extends AppCompatActivity
         mAdapter = new RecyclerViewAdapter(lstLista, this);
         myrecyclerview.setAdapter(mAdapter);
 
+        mAdapter.setClickListener(this);
         mAdapter.notifyDataSetChanged();
 
         ActionBar actionBar = getSupportActionBar();
@@ -181,7 +185,8 @@ public class MainActivity extends AppCompatActivity
                 }
         }
     }
-
+    // on activiry result nedzie zwracalo id proudktow i listy i zaposywalo do addedlist, a pozniej z tego nea tpwrzone prodiktu,
+    //  a potem itemy produktow
     public void addNewList(Lista lista){
         lstLista.add(0, lista);
         mAdapter.notifyItemInserted(0);
@@ -194,11 +199,41 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    //Nowe activity, klikajac na liste
-    public void onClickList(View view) {
-        Intent intent = new Intent(this, CategoryActivity.class);
+
+
+    @Override
+    public void onClick(View view, int position) {
+        final Lista lista = lstLista.get(position);
+        Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
+        listName = lista.getName();
+        lstId = baza.getIDListy(listName);
+        intent.putExtra("ListName", lstId);
         startActivity(intent);
     }
 
+    public static String getListName() {
+        return listName;
+    }
+
+
+    public static String getListId() {
+        return lstId;
+    }
+
+    //Nowe activity, klikajac na liste
+/*
+    public void setLisntnerOnButtonItemList() {
+        item_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
+            //    String id = mAdapter.getName();
+            //    Toast.makeText(MainActivity.this, id, Toast.LENGTH_LONG).show();
+               // intent.putExtra("ID",id);
+                startActivity(intent);
+            }
+        });
+    }
+*/
 
 }

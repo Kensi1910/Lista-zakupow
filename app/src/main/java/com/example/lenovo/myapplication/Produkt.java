@@ -3,10 +3,13 @@ package com.example.lenovo.myapplication;
 /**
  * Created by Daymos on 2018-04-06.
  */
+        import android.os.Parcel;
+        import android.os.Parcelable;
+
         import java.io.Serializable;
 
 
-public class Produkt  {
+public class Produkt implements Parcelable {
     private int id;
     private String nazwa;
     private Float cena_min;
@@ -28,13 +31,11 @@ public class Produkt  {
         this.cena_max = cena_max;
     }
 
-    public Produkt(int id, String nazwa, Float cena_min, Float cena_max, int id_kategoria, boolean isSelected) {
-        this.id = id;
+    public Produkt(String nazwa, Float cena_min, Float cena_max, int id_kategoria) {
         this.nazwa = nazwa;
         this.cena_min = cena_min;
         this.cena_max = cena_max;
         this.id_kategoria = id_kategoria;
-        this.isSelected = isSelected;
     }
 
     public String getName(){
@@ -83,5 +84,37 @@ public class Produkt  {
 
     public void setSelected(boolean isSelected){
         this.isSelected=isSelected;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(nazwa);
+        parcel.writeFloat(cena_min);
+        parcel.writeFloat(cena_max);
+     //   parcel.writeBooleanArray(isSelected);
+    }
+
+
+    public static final Parcelable.Creator<Produkt> CREATOR = new Parcelable.Creator<Produkt>() {
+        public Produkt createFromParcel(Parcel in) {
+            return new Produkt(in);
+        }
+
+        public Produkt[] newArray(int size) {
+            return new Produkt[size];
+        }
+    };
+
+    private Produkt(Parcel in) {
+        id = in.readInt();
+        nazwa = in.readString();
+        cena_min = in.readFloat();
+        cena_max = in.readFloat();
     }
 }

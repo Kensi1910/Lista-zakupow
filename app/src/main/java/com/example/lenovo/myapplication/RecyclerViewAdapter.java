@@ -2,6 +2,7 @@ package com.example.lenovo.myapplication;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +29,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     List<Lista> mData;
     private Context context;
     private EditText nameEditText;
+    String name;
+    private ItemClickListener clickListener;
+
 
     public RecyclerViewAdapter(List<Lista> mData, Context context) {
         this.mData = mData;
@@ -99,12 +103,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });
 
-    }
 
+
+    }
 
     @Override
     public int getItemCount() {
         return mData.size();
+    }
+
+    public void setClickListener(ItemClickListener itemClickListener) {
+        this.clickListener = itemClickListener;
     }
 
     private void updateListaName(String name, String oldName, int position) {
@@ -120,27 +129,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
        // notifyItemRemoved(position);
         notifyDataSetChanged();
     }
-    public void deleteListaAll() {
-        baza.deleteListaAll();
-    }
-    //Usuwa liste
-    public void removeItem(int position) {
-        mData.remove(position);
-        notifyDataSetChanged();
-    }
-    //Zmienia nazwe listy
-    public void changeNameItem(String name, int position) {
-        mData.get(position).setName(name);
-        notifyDataSetChanged();
-    }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public  class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private LinearLayout item_contact;
         private TextView tv_name;
         private TextView tv_data;
         private ImageView settings_icon;
-
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -149,9 +144,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tv_name = (TextView) itemView.findViewById(R.id.name_list);
             tv_data = (TextView) itemView.findViewById(R.id.create_list_date);
             settings_icon = (ImageView) itemView.findViewById(R.id.settings_list_icon);
-
+            itemView.setTag(itemView);
+            itemView.setOnClickListener(this);
         }
 
+
+        @Override
+        public void onClick(View view) {
+            if (clickListener != null) {
+                clickListener.onClick(view, getAdapterPosition());
+            }
+        }
     }
 }
 

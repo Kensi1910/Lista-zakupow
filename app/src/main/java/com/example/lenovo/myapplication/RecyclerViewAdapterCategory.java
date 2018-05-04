@@ -44,6 +44,7 @@ public class RecyclerViewAdapterCategory extends RecyclerView.Adapter<RecyclerVi
     private Button pickImageButton;
     private ImageView zdjecie;
     public String nazwa = "";
+    private static String categoryId;
 
     public RecyclerViewAdapterCategory(Context mContext, List<Category> mData) {
         this.mContext = mContext;
@@ -63,7 +64,7 @@ public class RecyclerViewAdapterCategory extends RecyclerView.Adapter<RecyclerVi
 
         holder.tv_category_name.setText(mData.get(position).getName());
      //   holder.iv_image_category.setImageResource(mData.get(position).getImage());
-        byte[] categoryImage = mData.get(position).getImage();
+        final byte[] categoryImage = mData.get(position).getImage();
         Bitmap bitmap = BitmapFactory.decodeByteArray(categoryImage, 0, categoryImage.length);
         holder.iv_image_category.setImageBitmap(bitmap);
 
@@ -71,9 +72,9 @@ public class RecyclerViewAdapterCategory extends RecyclerView.Adapter<RecyclerVi
             @Override
             public void onClick(View view) {
                 nazwa = mData.get(position).getName();
-
                 Intent intent = new Intent(mContext, AddProductActivity.class);
-                intent.putExtra("nazwa3", nazwa);
+                categoryId = baza.getIDCategory(nazwa);
+                intent.putExtra("id_kategori", categoryId);
                 mContext.startActivity(intent);
             }
         });
@@ -205,6 +206,7 @@ public class RecyclerViewAdapterCategory extends RecyclerView.Adapter<RecyclerVi
     public int getItemCount() {
         return mData.size();
     }
+
 
     public static class MyRecycleView extends RecyclerView.ViewHolder {
 

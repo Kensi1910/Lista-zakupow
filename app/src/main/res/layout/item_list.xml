@@ -7,7 +7,7 @@
         android:padding="5dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp"
-        android:onClick="onClickList"
+
         android:background="#dddddd"
         xmlns:tools="http://schemas.android.com/tools">
 
