@@ -1,5 +1,6 @@
 package com.example.lenovo.myapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,10 +47,14 @@ public class RecyclerViewAdapterCategory extends RecyclerView.Adapter<RecyclerVi
     private ImageView zdjecie;
     public String nazwa = "";
     private static String categoryId;
+    private static final int REQUEST_CODE_KATEGORIA = 122;
+
+
 
     public RecyclerViewAdapterCategory(Context mContext, List<Category> mData) {
         this.mContext = mContext;
         this.mData = mData;
+
     }
 
     @Override
@@ -75,9 +81,12 @@ public class RecyclerViewAdapterCategory extends RecyclerView.Adapter<RecyclerVi
                 Intent intent = new Intent(mContext, AddProductActivity.class);
                 categoryId = baza.getIDCategory(nazwa);
                 intent.putExtra("id_kategori", categoryId);
-                mContext.startActivity(intent);
+                ((Activity) mContext).startActivityForResult(intent,REQUEST_CODE_KATEGORIA);
+
             }
         });
+
+
 /*
         holder.cardView_category.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -166,7 +175,6 @@ public class RecyclerViewAdapterCategory extends RecyclerView.Adapter<RecyclerVi
 
     }
 
-
     private void updateKategoriaName(String name, String oldName, int position) {
         Category c = mData.get(position);
         c.setName(name);
@@ -206,6 +214,7 @@ public class RecyclerViewAdapterCategory extends RecyclerView.Adapter<RecyclerVi
     public int getItemCount() {
         return mData.size();
     }
+
 
 
     public static class MyRecycleView extends RecyclerView.ViewHolder {

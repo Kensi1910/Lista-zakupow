@@ -27,7 +27,7 @@ public class ProductListActivity extends AppCompatActivity {
     private TextView tv_show_baza;
     private Button button_show_baza;
     private TextView tv_name_list;
-    ArrayList<Produkt> arraylist2;
+    ArrayList<Produkt> arraylist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class ProductListActivity extends AppCompatActivity {
 
 
         lstAddedProduct = new ArrayList<>();
-        arraylist2 = new ArrayList<>();
+        arraylist = new ArrayList<>();
         lstAddedProduct = baza.getAddedProductyID(nazwa2);
 
         mRecylerView = (RecyclerView) findViewById(R.id.my_recycler_view_add_produkt);
@@ -70,9 +70,9 @@ public class ProductListActivity extends AppCompatActivity {
             case REQUEST_CODE_GETMESSAGE:
                 if (resultCode == RESULT_OK) {
                     Bundle bundle = data.getExtras();
-                    arraylist2 = bundle.getParcelableArrayList("mylist");
-                    if (!(arraylist2.isEmpty())) {
-                        lstAddedProduct.addAll(arraylist2);
+                    arraylist = bundle.getParcelableArrayList("mylist");
+                    if (!(arraylist.isEmpty())) {
+                        lstAddedProduct.addAll(arraylist);
                         mAdapter.notifyDataSetChanged();
                     }
 

@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,30 +38,33 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends AppCompatActivity{
 
     private List<Category> lstCategory;
-    private static final int REQUEST_CODE_GETMESSAGE = 1423;
+    private static final int REQUEST_CODE = 1423;
+    private static final int REQUEST_CODE_KATEGORIA = 122;
     private String newCategoryName;
     private byte[] newCategoryImage;
     private Baza baza;
     private RecyclerView recyclerViewCategory;
     private RecyclerViewAdapterCategory mAdapter;
     byte[] foto;
-
+    private CardView cardView_category;
     private Button pickImageButton;
     private ImageView zdjecie;
     private TextView opis_zmien_zdjecie;
     final int REQUEST_CODE_GALLERY = 999;
     private static final int PICK_IMAGE = 1;
+    public static ArrayList<Produkt> arraylist2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+        cardView_category = findViewById(R.id.card_view_category_id);
         baza = new Baza(this);
         lstCategory = new ArrayList<>();
-
+        arraylist2 = new ArrayList<>();
         lstCategory = MainActivity.baza.getAllKategoria();
 
         recyclerViewCategory = (RecyclerView) findViewById(R.id.category_recyclerview);
@@ -82,6 +86,8 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onLongClick(View view, int position) {
                 showActionsDialog(position);
+
+          //      Toast.makeText(CategoryActivity.this, "ff", Toast.LENGTH_LONG).show();
             }
         }));
 
@@ -229,7 +235,7 @@ public class CategoryActivity extends AppCompatActivity {
       //  Intent intent = new Intent(this, AddCategory.class);
      //   startActivity(intent);
         Intent intent = AddCategory.makeIntent(CategoryActivity.this);
-        startActivityForResult(intent, REQUEST_CODE_GETMESSAGE);
+        startActivityForResult(intent, REQUEST_CODE);
     }
 
     private void activeGallery() {
@@ -280,21 +286,41 @@ public class CategoryActivity extends AppCompatActivity {
 
 
         switch (requestCode) {
-            case REQUEST_CODE_GETMESSAGE:
+            case REQUEST_CODE:
                 if (resultCode == Activity.RESULT_OK) {
                     newCategoryName = data.getStringExtra("key_category_name");
                     newCategoryImage = data.getByteArrayExtra("key_category_image");
                     addNewCategory(new Category(newCategoryName, newCategoryImage));
+                }
+            case REQUEST_CODE_KATEGORIA:
+                if (resultCode == RESULT_OK) {
+                    Bundle bundle = data.getExtras();
+                    arraylist2 = bundle.getParcelableArrayList("mylist");
 
                 }
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("mylist", arraylist2);
+        Intent intent = new Intent();
+        intent.putExtras(bundle);
+        Toast.makeText(CategoryActivity.this, arraylist2.get(0).getName() + " " + arraylist2.get(1).getName(), Toast.LENGTH_LONG).show();
+        setResult(RESULT_OK, intent);
+        super.onBackPressed();
+
+    }
     public void addNewCategory(Category category){
         lstCategory.add(lstCategory.size(), category);
         mAdapter.notifyItemInserted(lstCategory.size());
         recyclerViewCategory.scrollToPosition(lstCategory.size() - 1);
 
     }
+
+
+    private String nazwaKategori;
+    private static String idKategori;
 
 }

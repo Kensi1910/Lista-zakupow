@@ -199,8 +199,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-
     @Override
     public void onClick(View view, int position) {
         final Lista lista = lstLista.get(position);
