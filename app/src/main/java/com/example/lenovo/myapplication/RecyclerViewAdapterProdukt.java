@@ -74,6 +74,8 @@ public class RecyclerViewAdapterProdukt extends RecyclerView.Adapter<RecyclerVie
 
                 baza.createListaProdoktow(id_listyy,id_produktu);
                 AddProductActivity.produktyList2.add(baza.getProduktByID(id_produktu));
+              //  AddProduktTabLayout.produktyList2.add(baza.getProduktByID(id_produktu));
+                AddProduktTabLayout.arraylist2.add(baza.getProduktByID(id_produktu));
             }
         });
 

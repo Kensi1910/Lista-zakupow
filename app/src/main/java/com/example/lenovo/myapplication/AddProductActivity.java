@@ -87,7 +87,7 @@ public class AddProductActivity extends AppCompatActivity {
         bundle.putParcelableArrayList("mylist", produktyList2);
         Intent intent = new Intent();
         intent.putExtras(bundle);
-       //  Toast.makeText(AddProductActivity.this, produktyList2.get(0).getName() + " " + ProductListActivity.produktyList2.get(1).getName(), Toast.LENGTH_LONG).show();
+       //  Toast.makeText(AddProductActivity.this, produktyList2.get(0).getName(), Toast.LENGTH_LONG).show();
         setResult(RESULT_OK, intent);
         super.onBackPressed();
 

@@ -82,7 +82,7 @@ public class RecyclerViewAdapterCategory extends RecyclerView.Adapter<RecyclerVi
                 categoryId = baza.getIDCategory(nazwa);
                 intent.putExtra("id_kategori", categoryId);
                 ((Activity) mContext).startActivityForResult(intent,REQUEST_CODE_KATEGORIA);
-
+               // ((Activity) mContext).startActivityForResult(intent, LastProduktFragment.REQUEST_CODE_KATEGORIA);
             }
         });
 
@@ -213,6 +213,7 @@ public class RecyclerViewAdapterCategory extends RecyclerView.Adapter<RecyclerVi
     @Override
     public int getItemCount() {
         return mData.size();
+
     }
 
 

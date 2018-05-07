@@ -90,7 +90,7 @@ public class ProductListActivity extends AppCompatActivity {
         fabAddProdukt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProductListActivity.this, CategoryActivity.class);
+                Intent intent = new Intent(ProductListActivity.this, AddProduktTabLayout.class);
                 startActivityForResult(intent, REQUEST_CODE_GETMESSAGE);
 
             }

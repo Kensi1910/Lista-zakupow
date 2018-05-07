@@ -12,8 +12,8 @@ package com.example.lenovo.myapplication;
 public class Produkt implements Parcelable {
     private int id;
     private String nazwa;
-    private Float cena_min;
-    private Float cena_max;
+    private Float cena_min = 0.0f;
+    private Float cena_max = 0.0f;
     private int id_kategoria;
     private boolean isSelected;
 

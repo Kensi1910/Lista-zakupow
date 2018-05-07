@@ -691,6 +691,34 @@ public class Baza extends SQLiteOpenHelper {
 
     }
 
+    public List<Produkt> getAllProdukt() {
+        List<Produkt> lstProdukt = new ArrayList<Produkt>();
+        String selectQuery2 = "SELECT * FROM " + TABLE_PRODUKTY;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery2, null);
+
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                Produkt pdt = new Produkt();
+                pdt.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+                pdt.setName(c.getString(c.getColumnIndex(KEY_PRODUKT)));
+                pdt.setCena_min(c.getFloat(c.getColumnIndex(KEY_CENA_MIN)));
+                pdt.setCena_max(c.getFloat(c.getColumnIndex(KEY_CENA_MAX)));
+                pdt.setId_kategoria(c.getInt(c.getColumnIndex(KEY_ID_KATEGORIA)));
+
+                // adding category list
+                lstProdukt.add(pdt);
+            } while (c.moveToNext());
+        }
+
+        c.close();
+        return lstProdukt;
+
+    }
+
     /**
      * getting all produkt
      * */
