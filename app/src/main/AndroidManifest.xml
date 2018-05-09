@@ -32,6 +32,8 @@
             android:parentActivityName=".CategoryActivity" />
         <activity android:name=".ChangePictureCategoryActivity" />
         <activity android:name=".ProductListActivity" />
+        <activity android:name=".przepisy_activity" />
+        <activity android:name=".PrzepisyDetailActivity"></activity>
     </application>
 
 </manifest>

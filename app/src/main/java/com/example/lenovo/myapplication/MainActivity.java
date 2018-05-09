@@ -150,11 +150,14 @@ public class MainActivity extends AppCompatActivity
             removeAllLists();
             baza.deleteListaAll();
             Toast.makeText(this, "Wszystkie listy zostały usuniete",Toast.LENGTH_LONG).show();
-        } else if (id == R.id.wyslij) {
+        } else if (id == R.id.przepisy_item) {
+            Intent intent = new Intent(MainActivity.this,przepisy_activity.class);
+            startActivity(intent);
 
         } else if (id == R.id.o_autorach) {
 
         }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
