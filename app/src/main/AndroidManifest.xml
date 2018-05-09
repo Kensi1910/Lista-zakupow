@@ -23,7 +23,6 @@
         </activity>
         <activity android:name=".AddListActivity" />
         <activity android:name=".AddProductActivity" />
-        <activity android:name=".GridViewImageTextActivity" />
         <activity android:name=".FormulaAddNewCategoryActivity" />
         <activity android:name=".CategoryActivity" />
         <activity android:name=".AddProduktTabLayout" />
@@ -32,7 +31,7 @@
             android:label="Food List"
             android:parentActivityName=".CategoryActivity" />
         <activity android:name=".ChangePictureCategoryActivity" />
-        <activity android:name=".ProductListActivity"></activity>
+        <activity android:name=".ProductListActivity" />
     </application>
 
 </manifest>

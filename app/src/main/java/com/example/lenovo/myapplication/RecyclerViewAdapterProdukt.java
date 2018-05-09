@@ -1,7 +1,10 @@
 package com.example.lenovo.myapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,13 +72,16 @@ public class RecyclerViewAdapterProdukt extends RecyclerView.Adapter<RecyclerVie
                 int id_produktu = mData.get(pos).getId();
                 int id_listyy = Integer.parseInt(id_listy);
 
-                Toast.makeText(
-                        v.getContext(),
-                        "Clicked on Checkbox: " + cb.getText() + " produkt: " + id_produktu + "Nazwa listy: " + name_listy + "id listy: " + id_listyy, Toast.LENGTH_LONG).show();
+            //    Toast.makeText(
+                  //      v.getContext(),
+                  //      "Clicked on Checkbox: " + cb.getText() + " produkt: " + id_produktu + "Nazwa listy: " + name_listy + "id listy: " + id_listyy, Toast.LENGTH_LONG).show();
 
                 baza.createListaProdoktow(id_listyy,id_produktu);
-                AddProductActivity.produktyList2.add(baza.getProduktByID(id_produktu));
-              //  AddProduktTabLayout.produktyList2.add(baza.getProduktByID(id_produktu));
+              //  if () {
+                 //   AddProductActivity.produktyList2.add(baza.getProduktByID(id_produktu));
+                    AddProduktTabLayout.produktyList2.add(baza.getProduktByID(id_produktu));
+             //   }
+               // ProductListActivity.produktyList2.add(baza.getProduktByID(id_produktu));
                 AddProduktTabLayout.arraylist2.add(baza.getProduktByID(id_produktu));
             }
         });
@@ -207,6 +214,11 @@ public class RecyclerViewAdapterProdukt extends RecyclerView.Adapter<RecyclerVie
                 })
                 .show();
     }
+
+    public void filterList(List<Produkt> listProdukt) {
+        this.mData = listProdukt;
+        notifyDataSetChanged();
+    }
     public static class MyRecycleView extends RecyclerView.ViewHolder {
 
         private TextView tvNazwa;
@@ -222,7 +234,6 @@ public class RecyclerViewAdapterProdukt extends RecyclerView.Adapter<RecyclerVie
         }
 
     }
-    public List<Produkt> getproduktis() {
-        return mData;
-    }
+
+
 }

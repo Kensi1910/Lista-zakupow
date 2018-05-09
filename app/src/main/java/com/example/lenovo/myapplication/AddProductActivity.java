@@ -27,7 +27,7 @@ public class AddProductActivity extends AppCompatActivity {
     private RecyclerView mRecylerView ;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    public static ArrayList<Produkt> produktyList2;
+   // public static ArrayList<Produkt> produktyList2;
     private List<Produkt> produktyList;
     private Button button_add_new_produkt;
     private Button button_wyswietl_baza;
@@ -46,10 +46,9 @@ public class AddProductActivity extends AppCompatActivity {
 
         id_kategori = getIntent().getStringExtra("id_kategori");
         produktyList  = MainActivity.baza.getAllProdukt(id_kategori);
-        produktyList2 = new ArrayList<>();
+       // produktyList2 = new ArrayList<>();
+        AddProduktTabLayout.produktyList2 = new ArrayList<>();
 
-        tv_wyswietl_baza = (TextView) findViewById(R.id.tv_wyswietl_produkty_baza);
-        button_wyswietl_baza = (Button) findViewById(R.id.wyswietlProdukt);
         button_add_new_produkt = (Button) findViewById(R.id.add_new_produkt_button);
         add_new_produkt_edit_text = (EditText) findViewById(R.id.add_new_produkt_edit_text);
 
@@ -60,14 +59,6 @@ public class AddProductActivity extends AppCompatActivity {
         mAdapter = new RecyclerViewAdapterProdukt(this,produktyList);
         mRecylerView.setAdapter(mAdapter);
 
-
-        button_wyswietl_baza.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_wyswietl_baza.setText(baza.WypiszProdukt());
-
-            }
-        });
 
         addNewProduktButtonListener();
         mAdapter.notifyDataSetChanged();
@@ -84,7 +75,7 @@ public class AddProductActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("mylist", produktyList2);
+        bundle.putParcelableArrayList("mylist",  AddProduktTabLayout.produktyList2);
         Intent intent = new Intent();
         intent.putExtras(bundle);
        //  Toast.makeText(AddProductActivity.this, produktyList2.get(0).getName(), Toast.LENGTH_LONG).show();
@@ -100,18 +91,13 @@ public class AddProductActivity extends AppCompatActivity {
                 int id_kategori_int = Integer.parseInt(id_kategori);
                 Produkt produkt = new Produkt(name, 0.0f, 0.0f, id_kategori_int);
                 baza.createProdukt(produkt);
-                Toast.makeText(getApplicationContext(), "Dodano " + name, Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getApplicationContext(), "Dodano " + name, Toast.LENGTH_LONG).show();
                 add_new_produkt_edit_text.setText("");
                 produktyList.add(0, baza.getProdukt());
                 mAdapter.notifyDataSetChanged();
             }
         });
     }
-
-    public static Intent makeIntent(Context context) {
-        return new Intent(context, AddListActivity.class);
-    }
-
 
 
 }

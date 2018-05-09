@@ -68,13 +68,6 @@ public class AddCategory extends AppCompatActivity {
 
         addCategoryListener();
 
-        wyswietl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_wyswietl.setText(baza.WypiszKategorie());
-            }
-        });
-
 
     }
 
@@ -127,8 +120,6 @@ public class AddCategory extends AppCompatActivity {
         zdjecie = (ImageView) findViewById(R.id.iv_new_picture);
         addPictureButton = (Button) findViewById(R.id.add_picture_button);
         dodajKategorieButton = (Button) findViewById(R.id.button_dodaj_kategorie);
-        wyswietl = (Button) findViewById(R.id.wyswietlButton);
-        tv_wyswietl = (TextView) findViewById(R.id.wypisKategorii);
     }
 
     public void addCategoryListener() {
@@ -146,7 +137,7 @@ public class AddCategory extends AppCompatActivity {
                         category = new Category(s,b);
                         baza.createCategory(category);
 
-                        Toast.makeText(getApplicationContext(), "Dodano pomyślnie", Toast.LENGTH_LONG).show();
+                     //   Toast.makeText(getApplicationContext(), "Dodano pomyślnie", Toast.LENGTH_LONG).show();
                         nameKategoria.setText("");
                         zdjecie.setImageResource(R.mipmap.ic_launcher);
                     }
@@ -161,7 +152,7 @@ public class AddCategory extends AppCompatActivity {
                     intent.putExtra("key_category_name", nazwa2);
                     intent.putExtra("key_category_image", image2);
                     setResult(Activity.RESULT_OK, intent);
-                    //finish();
+                    finish();
                 }
                 }
 

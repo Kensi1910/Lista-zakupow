@@ -33,13 +33,6 @@ public class AddListActivity extends AppCompatActivity {
 
         addListenerOnButton();
 
-       button_wypisz_baza.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_wyswietl_all_lista.setText(baza.WypiszLista());
-            }
-        });
-
 
     }
 
@@ -78,7 +71,7 @@ public class AddListActivity extends AppCompatActivity {
                     intent.putExtra("key_lista_data_u",listDataUString);
                     intent.putExtra("key_lista_data_p",listDataPString);
                     setResult(Activity.RESULT_OK, intent);
-                    //  finish();
+                    finish();
                     //    }
                 }
 
@@ -89,8 +82,6 @@ public class AddListActivity extends AppCompatActivity {
     private void init() {
         button_wyslij = (Button) findViewById(R.id.button_send);
         shop_list_name = (EditText) findViewById(R.id.new_list_edit_text);
-        button_wypisz_baza = (Button) findViewById(R.id.buton_wypisz_lista_baza);
-        tv_wyswietl_all_lista = (TextView) findViewById(R.id.tv_wypis_all_lista_baza);
     }
     public static Intent makeIntent(Context context) {
         return new Intent(context, AddListActivity.class);

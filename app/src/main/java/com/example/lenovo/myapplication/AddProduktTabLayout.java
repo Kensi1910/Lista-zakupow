@@ -66,14 +66,9 @@ public class AddProduktTabLayout extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-       // tabLayout.getTabAt(0).setIcon(R.drawable.lista_icon);
-      //  tabLayout.getTabAt(1).setIcon(R.drawable.usun_icon);
-      //  tabLayout.getTabAt(2).setIcon(R.drawable.dodaj1_icon);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setElevation(0);
-
-      //  setAddNewCategoryButtonListener();
 
     }
 
@@ -96,12 +91,6 @@ public class AddProduktTabLayout extends AppCompatActivity {
 
 
         switch (requestCode) {
-          //  case REQUEST_CODE:
-              //  if (resultCode == RESULT_OK) {
-               //     newCategoryName = data.getStringExtra("key_category_name");
-               //     newCategoryImage = data.getByteArrayExtra("key_category_image");
-                //    addNewCategory(new Category(newCategoryName, newCategoryImage));
-               // }
             case REQUEST_CODE_KATEGORIA:
                 if (resultCode == RESULT_OK) {
                     Bundle bundle = data.getExtras();
@@ -109,19 +98,5 @@ public class AddProduktTabLayout extends AppCompatActivity {
                 }
         }
     }
-   // public void addNewCategory(Category category){
-       //   lstCategory.add(lstCategory.size(), category);
-       //      mAdapter.notifyItemInserted(lstCategory.size());
-       //   recyclerViewCategory.scrollToPosition(lstCategory.size() - 1);
 
-   // }
-   // private void setAddNewCategoryButtonListener() {
-   //     addNewCategoryButton.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-       //     public void onClick(View view) {
-         //       Intent intent = AddCategory.makeIntent(AddProduktTabLayout.this);
-         //       startActivityForResult(intent, REQUEST_CODE);
-        //    }
-       // });
-   // }
 }

@@ -307,7 +307,7 @@ public class CategoryActivity extends AppCompatActivity{
         bundle.putParcelableArrayList("mylist", arraylist2);
         Intent intent = new Intent();
         intent.putExtras(bundle);
-        Toast.makeText(CategoryActivity.this, arraylist2.get(0).getName() + " " + arraylist2.get(1).getName(), Toast.LENGTH_LONG).show();
+       // Toast.makeText(CategoryActivity.this, arraylist2.get(0).getName() + " " + arraylist2.get(1).getName(), Toast.LENGTH_LONG).show();
         setResult(RESULT_OK, intent);
         super.onBackPressed();
 
@@ -318,9 +318,5 @@ public class CategoryActivity extends AppCompatActivity{
         recyclerViewCategory.scrollToPosition(lstCategory.size() - 1);
 
     }
-
-
-    private String nazwaKategori;
-    private static String idKategori;
 
 }

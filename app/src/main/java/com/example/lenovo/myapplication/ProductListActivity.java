@@ -28,6 +28,8 @@ public class ProductListActivity extends AppCompatActivity {
     private Button button_show_baza;
     private TextView tv_name_list;
     ArrayList<Produkt> arraylist;
+    public static ArrayList<Produkt> produktyList2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +38,15 @@ public class ProductListActivity extends AppCompatActivity {
         init();
 
         String nazwa2 = getIntent().getStringExtra("ListName");
+        String id = getIntent().getStringExtra("ListId");
         tv_name_list.setText(nazwa2);
 
         baza = new Baza(this);
 
-
+        produktyList2 = new ArrayList<>();
         lstAddedProduct = new ArrayList<>();
         arraylist = new ArrayList<>();
-        lstAddedProduct = baza.getAddedProductyID(nazwa2);
+        lstAddedProduct = baza.getAddedProductyID(id);
 
         mRecylerView = (RecyclerView) findViewById(R.id.my_recycler_view_add_produkt);
         mRecylerView.setLayoutManager(new LinearLayoutManager(this));
@@ -51,13 +54,6 @@ public class ProductListActivity extends AppCompatActivity {
         mRecylerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
         addListenerToButtonAddProduct();
-
-        button_show_baza.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_show_baza.setText(baza.WypiszListeProdukt());
-            }
-        });
 
     }
 
@@ -100,8 +96,6 @@ public class ProductListActivity extends AppCompatActivity {
 
     private void init() {
         fabAddProdukt = (FloatingActionButton) findViewById(R.id.fab_add_produkt);
-        tv_show_baza = (TextView) findViewById(R.id.tv_show_baza_lista_produktow);
-        button_show_baza = (Button) findViewById(R.id.button_show_baza_lista_produktow);
         tv_name_list = (TextView) findViewById(R.id.tv_name_list);
     }
 }

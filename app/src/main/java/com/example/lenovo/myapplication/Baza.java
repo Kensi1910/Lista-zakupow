@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 import static android.content.ContentValues.TAG;
 
@@ -79,18 +80,40 @@ public class Baza extends SQLiteOpenHelper {
                 + KEY_ID + ")," + " FOREIGN KEY (" + KEY_ID_PRODUKT + ") REFERENCES " + TABLE_PRODUKTY + "("
                 + KEY_ID + "))";
 
-    Drawable drawable1,drawable2,drawable3,drawable4,drawable5,drawable6,drawable7,drawable8,drawable9,drawable10;
+    Drawable drawable1,drawable2,drawable3,drawable4,drawable5,drawable6,drawable7,drawable8,drawable9,drawable10,drawable11,drawable12,drawable13,drawable14,drawable15,drawable16,drawable17,drawable18,drawable19,drawable20, drawable21,drawable22,drawable23,drawable24, drawable25,drawable26,drawable27,drawable28, drawable29;
     byte[] foto;
 
     public Baza(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        drawable1 = context.getApplicationContext().getResources().getDrawable(R.drawable.alkohol);
-        drawable2 = context.getApplicationContext().getResources().getDrawable(R.drawable.milk);
-        drawable3 = context.getApplicationContext().getResources().getDrawable(R.drawable.warzywa);
-        drawable4 = context.getApplicationContext().getResources().getDrawable(R.drawable.napoje);
-        drawable5 = context.getApplicationContext().getResources().getDrawable(R.drawable.mroznia);
-        drawable6 = context.getApplicationContext().getResources().getDrawable(R.drawable.napoje);
-        drawable7 = context.getApplicationContext().getResources().getDrawable(R.drawable.napoje);
+        drawable1 = context.getApplicationContext().getResources().getDrawable(R.drawable.food1);
+        drawable2 = context.getApplicationContext().getResources().getDrawable(R.drawable.food2);
+        drawable3 = context.getApplicationContext().getResources().getDrawable(R.drawable.food3);
+        drawable4 = context.getApplicationContext().getResources().getDrawable(R.drawable.food4);
+        drawable5 = context.getApplicationContext().getResources().getDrawable(R.drawable.food5);
+        drawable6 = context.getApplicationContext().getResources().getDrawable(R.drawable.food6);
+        drawable7 = context.getApplicationContext().getResources().getDrawable(R.drawable.food8);
+        drawable8 = context.getApplicationContext().getResources().getDrawable(R.drawable.dog);
+        drawable9 = context.getApplicationContext().getResources().getDrawable(R.drawable.agenda);
+        drawable10 = context.getApplicationContext().getResources().getDrawable(R.drawable.animals);
+        drawable11 = context.getApplicationContext().getResources().getDrawable(R.drawable.bottle);
+        drawable12 = context.getApplicationContext().getResources().getDrawable(R.drawable.cheese);
+        drawable13 = context.getApplicationContext().getResources().getDrawable(R.drawable.cleaning);
+        drawable14 = context.getApplicationContext().getResources().getDrawable(R.drawable.clip);
+        drawable15 = context.getApplicationContext().getResources().getDrawable(R.drawable.commerce);
+        drawable16 = context.getApplicationContext().getResources().getDrawable(R.drawable.drink);
+        drawable17 = context.getApplicationContext().getResources().getDrawable(R.drawable.fruit);
+        drawable18 = context.getApplicationContext().getResources().getDrawable(R.drawable.fruit1);
+        drawable19 = context.getApplicationContext().getResources().getDrawable(R.drawable.suitcase);
+        drawable20 = context.getApplicationContext().getResources().getDrawable(R.drawable.technology);
+        drawable21 = context.getApplicationContext().getResources().getDrawable(R.drawable.tool);
+        drawable22 = context.getApplicationContext().getResources().getDrawable(R.drawable.tool1);
+        drawable23 = context.getApplicationContext().getResources().getDrawable(R.drawable.tool2);
+        drawable29 = context.getApplicationContext().getResources().getDrawable(R.drawable.transport);
+        drawable24 = context.getApplicationContext().getResources().getDrawable(R.drawable.food7);
+        drawable25 = context.getApplicationContext().getResources().getDrawable(R.drawable.food9);
+        drawable26 = context.getApplicationContext().getResources().getDrawable(R.drawable.food10);
+        drawable27 = context.getApplicationContext().getResources().getDrawable(R.drawable.food11);
+        drawable28 = context.getApplicationContext().getResources().getDrawable(R.drawable.food12);
     }
 
     @Override
@@ -112,28 +135,40 @@ public class Baza extends SQLiteOpenHelper {
         long produkt2 = createAddedProdukt2(new Produkt("Jajka", 1.2f, 4.5f),db);
 
 
-        long c = createAddedProduktLista(new Lista("Lista","12-04-2017","12-04-2017"), new long[] { produkt },db);
-        createListaProdoktow(c,produkt,db);
+        long c = createAddedProduktLista(new Lista("Lista Startowa","12-04-2017","12-04-2017"), new long[] { produkt },db);
+        createListaProdoktow(c,produkt2,db);
 
-        createListaStart(new Lista("Lista startowa","12-04-2017","12-04-2017"),db);
+      //  createListaStart(new Lista("Lista startowa","12-04-2017","12-04-2017"),db);
 
 
-        initStartKategorie(drawable1,"Alkohol",db);
-        initStartKategorie(drawable2,"Chemia",db);
-        initStartKategorie(drawable3,"Nabiał",db);
-        initStartKategorie(drawable4,"Warzywa",db);
-        initStartKategorie(drawable5,"Napoje",db);
-        initStartKategorie(drawable6,"Mrożonki",db);
-        initStartKategorie(drawable7,"Mięso",db);
-        initStartKategorie(drawable7,"Słodycze",db);
-        initStartKategorie(drawable7,"Ryby i owoce morza",db);
-        initStartKategorie(drawable7,"Dania gotowe i sosy",db);
-        initStartKategorie(drawable7,"Garmażeria",db);
-        initStartKategorie(drawable7,"Przetwory",db);
-        initStartKategorie(drawable7,"Sypkie",db);
-        initStartKategorie(drawable7,"Przyprawy",db);
-        initStartKategorie(drawable7,"Kawa i herbata",db);
-        initStartKategorie(drawable7,"Inne",db);
+        initStartKategorie(drawable1,"art. dzieciece",db);
+        initStartKategorie(drawable2,"art. sypkie",db);
+        initStartKategorie(drawable3,"ciasta, desery",db);
+        initStartKategorie(drawable4,"konserwy",db);
+        initStartKategorie(drawable5,"mieso i wedliny",db);
+        initStartKategorie(drawable6,"mrozonki i lody",db);
+        initStartKategorie(drawable7,"przetwory",db);
+        initStartKategorie(drawable8,"art. dla zwierzat",db);
+        initStartKategorie(drawable9,"prasa, ksiazki",db);
+        initStartKategorie(drawable10,"apteczka",db);
+        initStartKategorie(drawable11,"kosmetyki",db);
+        initStartKategorie(drawable12,"nabial",db);
+        initStartKategorie(drawable13,"art. domowe",db);
+        initStartKategorie(drawable14,"art. biurowe",db);
+        initStartKategorie(drawable15,"ubrania",db);
+        initStartKategorie(drawable16,"woda i napoje",db);
+        initStartKategorie(drawable17,"warzywa i owoce",db);
+        initStartKategorie(drawable18,"fit food",db);
+        initStartKategorie(drawable19,"Inne",db);
+        initStartKategorie(drawable20,"agd i rtv",db);
+        initStartKategorie(drawable22,"chemia gospodarcza",db);
+        initStartKategorie(drawable23,"higiena",db);
+        initStartKategorie(drawable24,"pieczywo",db);
+        initStartKategorie(drawable25,"przyprawy, sosy",db);
+        initStartKategorie(drawable26,"ryby",db);
+        initStartKategorie(drawable27,"slodycze i przekaski",db);
+        initStartKategorie(drawable28,"tluszcze",db);
+        initStartKategorie(drawable28,"motoryzacja",db);
 
     }
 
@@ -200,7 +235,7 @@ public class Baza extends SQLiteOpenHelper {
     private static byte[] imageViewToByte(Drawable drawable) {
         Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
         byte[] buffer= out.toByteArray();
         return buffer;
     }

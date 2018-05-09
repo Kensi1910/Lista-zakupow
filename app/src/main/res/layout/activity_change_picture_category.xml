@@ -13,7 +13,7 @@
         android:layout_height="164dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="100dp"
-        app:srcCompat="@drawable/chemia" />
+        app:srcCompat="@drawable/food2" />
 
     <TextView
         android:id="@+id/text_opis_zmiana_zdjecia"

@@ -22,6 +22,10 @@
             android:id="@+id/usun_listy"
             android:icon="@drawable/usun_icon"
             android:title="Usun listy" />
+        <item
+            android:id="@+id/przepisy_item"
+            android:icon="@drawable/ic_list_icon"
+            android:title="Przepisy" />
     </group>
 
     <item android:title="Kontakt">

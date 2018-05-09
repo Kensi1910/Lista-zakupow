@@ -25,16 +25,5 @@
             android:background="@color/colorAccent"
             android:text="Dodaj" />
 
-        <Button
-            android:id="@+id/buton_wypisz_lista_baza"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Wypisz" />
-
-        <TextView
-            android:id="@+id/tv_wypis_all_lista_baza"
-            android:layout_width="match_parent"
-            android:layout_height="180dp" />
-
 
 </LinearLayout>

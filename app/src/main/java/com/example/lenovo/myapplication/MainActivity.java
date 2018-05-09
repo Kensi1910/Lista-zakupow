@@ -155,7 +155,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.o_autorach) {
 
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -205,7 +204,8 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
         listName = lista.getName();
         lstId = baza.getIDListy(listName);
-        intent.putExtra("ListName", lstId);
+        intent.putExtra("ListId", lstId);
+        intent.putExtra("ListName", listName);
         startActivity(intent);
     }
 

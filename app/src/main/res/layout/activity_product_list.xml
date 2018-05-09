@@ -22,16 +22,14 @@ tools:context="com.example.lenovo.myapplication.ProductListActivity"
             android:layout_marginLeft="20dp"
             android:text="Nazwa listy" />
 
-        <Button
-            android:id="@+id/button_show_baza_lista_produktow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
 
     </LinearLayout>
 
 
-    <include layout="@layout/content_lista_produktow" />
+    <include
+        layout="@layout/content_lista_produktow"
+        android:layout_height="471dp"
+        tools:layout_editor_absoluteY="40dp" />
 
 
 <android.support.design.widget.FloatingActionButton

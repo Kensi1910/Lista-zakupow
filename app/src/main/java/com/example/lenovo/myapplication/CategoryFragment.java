@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +31,8 @@ public class CategoryFragment extends Fragment {
     TextView tv_category_name;
     public static Baza baza;
     private RecyclerView mRecylerView ;
-    private RecyclerView.Adapter mAdapter;
+   // private RecyclerView.Adapter mAdapter;
+    private RecyclerViewAdapterProdukt mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     public static ArrayList<Produkt> produktyList2;
     private List<Produkt> produktyList;
@@ -38,6 +41,7 @@ public class CategoryFragment extends Fragment {
     private TextView tv_wyswietl_baza;
     private EditText add_new_produkt_edit_text;
     private String id_kategori;
+    private EditText et_nazwa_produktu;
 
     public CategoryFragment() {
 
@@ -45,12 +49,14 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         baza = new Baza(getContext());
         produktyList = new ArrayList<>();
       //  id_kategori = getActivity().getIntent().getStringExtra("id_kategori");
         produktyList = MainActivity.baza.getAllProdukt();
-     //   produktyList2 = new ArrayList<>();
+        produktyList2 = new ArrayList<>();
         AddProduktTabLayout.arraylist2 = new ArrayList<>();
+
 
     }
 
@@ -59,8 +65,6 @@ public class CategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_category, container, false);
 
-        tv_wyswietl_baza = (TextView) v.findViewById(R.id.tv_wyswietl_produkty_baza);
-        button_wyswietl_baza = (Button) v.findViewById(R.id.wyswietlProdukt);
         button_add_new_produkt = (Button) v.findViewById(R.id.add_new_produkt_button);
         add_new_produkt_edit_text = (EditText) v.findViewById(R.id.add_new_produkt_edit_text);
 
@@ -70,41 +74,45 @@ public class CategoryFragment extends Fragment {
         mRecylerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new RecyclerViewAdapterProdukt(getContext(),produktyList);
         mRecylerView.setAdapter(mAdapter);
-
-
-        button_wyswietl_baza.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_wyswietl_baza.setText(baza.WypiszProdukt());
-
-            }
-        });
-
-        addNewProduktButtonListener();
         mAdapter.notifyDataSetChanged();
+        setAddNewProduktEditTextListener();
 
         return v;
     }
 
-    public void addNewProduktButtonListener() {
-        button_add_new_produkt.setOnClickListener(new View.OnClickListener() {
+
+    private void setAddNewProduktEditTextListener() {
+        add_new_produkt_edit_text.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                String name = add_new_produkt_edit_text.getText().toString();
-               // int id_kategori_int = Integer.parseInt(id_kategori);
-                Produkt produkt = new Produkt(name, 0.0f, 0.0f);
-                baza.createProdukt(produkt);
-                Toast.makeText(getActivity().getApplicationContext(), "Dodano " + name, Toast.LENGTH_LONG).show();
-                add_new_produkt_edit_text.setText("");
-                produktyList.add(0, baza.getProdukt());
-                mAdapter.notifyDataSetChanged();
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
             }
         });
     }
 
-    public static Intent makeIntent(Context context) {
-        return new Intent(context, AddListActivity.class);
-    }
+    private void filter(String text) {
 
+        List<Produkt> filterProdukt = new ArrayList<>();
+
+        for (Produkt p : produktyList) {
+            String nazwaProduktu = p.getName();
+            if (nazwaProduktu.toLowerCase().contains(text.toLowerCase())) {
+                filterProdukt.add(p);
+             //   AddProduktTabLayout.arraylist2.add(p);
+            }
+        }
+
+        mAdapter.filterList(filterProdukt);
+    }
 
 }

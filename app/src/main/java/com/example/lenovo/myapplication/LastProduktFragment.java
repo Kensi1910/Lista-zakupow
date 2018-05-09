@@ -41,10 +41,6 @@ import static android.app.Activity.RESULT_OK;
 /*t.
  */
 public class LastProduktFragment extends Fragment{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     View v;
     private List<Category> lstCategory;
     private static final int REQUEST_CODE = 1423;
@@ -66,16 +62,16 @@ public class LastProduktFragment extends Fragment{
 
 
     public LastProduktFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-            AddProduktTabLayout.arraylist2 = new ArrayList<>();
+          //  AddProduktTabLayout.arraylist2 = new ArrayList<>();
             lstCategory = new ArrayList<>();
-            //produktyList2 = new ArrayList<>();
+            produktyList2 = new ArrayList<>();
 
             baza = new Baza(getContext());
             lstCategory = MainActivity.baza.getAllKategoria();
@@ -115,7 +111,6 @@ public class LastProduktFragment extends Fragment{
             public void onLongClick(View view, int position) {
                 showActionsDialog(position);
 
-                //      Toast.makeText(CategoryActivity.this, "ff", Toast.LENGTH_LONG).show();
             }
         }));
 
@@ -189,12 +184,12 @@ public class LastProduktFragment extends Fragment{
 
         alertDialogBuilderUserInput
                 .setCancelable(false)
-                .setPositiveButton(shouldUpdate ? "update" : "save", new DialogInterface.OnClickListener() {
+                .setPositiveButton(shouldUpdate ? "Zapisz" : "save", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogBox, int id) {
 
                     }
                 })
-                .setNegativeButton("cancel",
+                .setNegativeButton("Anuluj",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogBox, int id) {
                                 dialogBox.cancel();
