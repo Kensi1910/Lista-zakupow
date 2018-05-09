@@ -28,7 +28,7 @@
         android:id="@+id/my_recycler_view_dodajProdukt"
         android:layout_width="match_parent"
         android:layout_height="383dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="40dp"
         android:orientation="horizontal"
         card_view:cardCornerRadius="5dp"
         tools:context="com.example.lenovo.myapplication.AddProductActivity">

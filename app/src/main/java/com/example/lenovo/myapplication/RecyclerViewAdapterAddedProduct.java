@@ -1,6 +1,8 @@
 package com.example.lenovo.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,10 +36,35 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
     }
 
     @Override
-    public void onBindViewHolder(MyRecyclerView holder, int position) {
+    public void onBindViewHolder(final MyRecyclerView holder, final int position) {
         holder.tvNazwa.setText(mData.get(position).getName());
         holder.chkSelected.setChecked(mData.get(position).isSelected());
         holder.chkSelected.setTag(mData.get(position));
+
+        holder.chkSelected.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClick(View view) {
+                CheckBox cb = (CheckBox) view;
+                Produkt produkt = (Produkt) cb.getTag();
+
+                produkt.setSelected((cb.isChecked()));
+                setStrikeThroughText(holder, position);
+             //   notifyDataSetChanged();
+          //      produkt.getName()
+              //  mData.get(position).setSelected(cb.isChecked());
+             //   String produkt_name = mData.get(position).getName();
+             //   String produkt_name = holder.tvNazwa.getText().toString();
+             //   if (produkt_name.equals(mData.get(position).getName())) {
+              //      strikeThroughText(holder.tvNazwa);
+              //      holder.rl_item_produkt.setBackgroundColor(R.color.colorPrimary);
+             //   }
+
+            //    TextView tv =  (TextView) view.findViewWithTag(cb.getTag());
+             //   strikeThroughText(tv);
+             //   notifyDataSetChanged();
+            }
+        });
     }
 
     public void updateData(List<Produkt> viewModels) {
@@ -50,6 +77,15 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
         return mData.size();
     }
 
+    private void strikeThroughText(TextView textView) {
+        textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private void setStrikeThroughText(final MyRecyclerView holder, final int position) {
+        strikeThroughText(holder.tvNazwa);
+        holder.rl_item_produkt.setBackgroundColor(R.color.colorPrimary);
+    }
     public static class MyRecyclerView extends RecyclerView.ViewHolder
     {
         private TextView tvNazwa;
