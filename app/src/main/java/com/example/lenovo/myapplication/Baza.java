@@ -41,6 +41,8 @@ public class Baza extends SQLiteOpenHelper {
     private static final String TABLE_LISTA = "lista";
     private static final String TABLE_PRODUKTY = "produkty";
     private static final String TABLE_LISTA_PRODUKTOW = "lista_produktow";
+    private static final String TABLE_PRZEPISY = "przepisy";
+    private static final String TABLE_PRZEPISY_PRODUKTY = "przepisy_produkty";
 
 
     // Common column names
@@ -58,6 +60,9 @@ public class Baza extends SQLiteOpenHelper {
     private static final String KEY_ID_LISTA = "id_lista";
     private static final String KEY_ID_PRODUKT = "id_produkt";
     private static final String KEY_ILOSC = "ilosc";
+    private static final String KEY_PRZEPISY = "przepisy_nazwa";
+    private static final String KEY_OPIS = "przepisy_opis";
+    private static final String KEY_ID_PRZEPISU = "id_przepisy";
 
      String CREATE_TABLE_KATEGORIA = "CREATE TABLE " + TABLE_KATEGORIA + "("
           + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_KATEGORIA
@@ -80,8 +85,72 @@ public class Baza extends SQLiteOpenHelper {
                 + KEY_ID + ")," + " FOREIGN KEY (" + KEY_ID_PRODUKT + ") REFERENCES " + TABLE_PRODUKTY + "("
                 + KEY_ID + "))";
 
+    String CREATE_TABLE_PRZEPISY = "CREATE TABLE " + TABLE_PRZEPISY + "("
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_PRZEPISY
+            + " TEXT NOT NULL," + KEY_OPIS + " TEXT NOT NULL," + KEY_IMAGE + " BLOB NOT NULL" + ")";
+
+
+    String CREATE_TABLE_PRZEPISY_PRODUKTY = "CREATE TABLE " + TABLE_PRZEPISY_PRODUKTY + "("
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_ID_PRZEPISU
+            + " INTEGER NOT NULL," + KEY_ID_PRODUKT + " INTEGER NOT NULL,"
+            + KEY_ILOSC + " INTEGER," + " FOREIGN KEY (" + KEY_ID_PRZEPISU + ") REFERENCES " + TABLE_PRZEPISY + "("
+            + KEY_ID + ")," + " FOREIGN KEY (" + KEY_ID_PRODUKT + ") REFERENCES " + TABLE_PRODUKTY + "("
+            + KEY_ID + "))";
+
     Drawable drawable1,drawable2,drawable3,drawable4,drawable5,drawable6,drawable7,drawable8,drawable9,drawable10,drawable11,drawable12,drawable13,drawable14,drawable15,drawable16,drawable17,drawable18,drawable19,drawable20, drawable21,drawable22,drawable23,drawable24, drawable25,drawable26,drawable27,drawable28, drawable29;
+    Drawable drawableP1, drawableP2, drawableP3, drawableP4, drawableP5, drawableP6,drawableP7, drawableP8, drawableP9;
     byte[] foto;
+
+    public  String[] opis = {
+            //1
+            "Krok 1 \n\n" +
+                    "Główkę czosnku zawiń w aluminiową folię i wstaw do nagrzanego do 180° C piekarnika na 25 minut. Po tym czasie czosnek obierz, rozgnieć i drobno posiekaj. Natkę oraz cebulę także posiekaj, a ser zetrzyj na tarce o drobnych oczkach. \n\nKrok 2\n\n" +
+                    "Pierś osusz papierowym ręcznikiem, skrop oliwą i posyp przyprawą do kurczaka. Pierś usmaż na grillowej patelni (po 4-5 minut z każdej strony), lekko wystudź i pokrój w paski \n\nKrok 3\n\n" +
+                    "Na patelni rozgrzej oliwę, zeszklij cebulę, a następnie wlej wino i podgrzewaj do momentu odparowania płynu.\n\nKrok 4\n\n" +
+                    "Zawartość opakowania Knorr rozmieszaj w miseczce ze śmietaną, wlej na patelnię i zagotuj. \n\nKrok 5\n\n" +
+                    "Zmniejsz ogień, dodaj do sosu upieczony czosnek, kurczaka oraz posiekaną natkę i gotuj 3 minuty. \n\nKrok 6\n\n" +
+                    "Makaron ugotuj we wrzącej lekko osolonej wodzie, odcedź. Następnie przełóż do sosu, dopraw pieprzem i wymieszaj. Gotowy makaron przełóż na talerze, posyp startym serem i udekoruj listkami pietruszki.",
+            //2
+            "Krok 1 \n\n" +
+                    "Rozgrzej piekarnik do 200°C. Pokrój w kostkę mięso i marchewkę. Zetrzyj ser na grubej tarce. Przesmaż mięso na złoto w 1 łyżce oleju. Dodaj 200 ml wody i zawartość opakowania Knorr Naturalnie smaczne - Spaghetti Bolognese.\n\n" +
+                    "Krok 2 \n\nWymieszaj, doprowadź do wrzenia i gotuj przez ok. 5 minut. Ochłodź. Wypełnij naleśniki farszem mięsnym i zroluj.\n\n" +
+                    "Krok 3 \n\nUłóż naleśniki w dobrze natłuszczonym naczyniu do zapiekania. Rozprowadź na nich śmietanę i posyp serem. Piecz przez ok. 10 minut, do momentu gdy ser roztopi się i lekko zrumieni na złoto.",
+            //3
+            "Krok 1 \n\n" +
+                    "Piersi z kurczaka pokrój w paski i obsmaż na patelni. Rozmrożone warzywa dodaj do mięsa i smaż przez chwilę.\n\n"+
+                    "Krok 2 \n\nFix Knorr wymieszaj z 300 ml wody i wlej na patelnię. Całość gotuj do momentu, aż sos zgęstnieje.\n\n"+
+                    "Krok 3 \n\nGotową potrawę podawaj z ryżem. Jej smak wzmocni łyżka sosu sojowego.\n\n",
+            //4
+            "Krok 1\n\n"+
+                    "W dużym garnku podsmaż na oleju posiekaną cebulę i czosnek.\n\n"+
+                    "Krok 2 \n\nPo chwili smażenia dodaj mielony kumin oraz koncentrat pomidorowy. Całość smaż jeszcze 3-4 minuty.\n\n"+
+                    "Krok 3 \n\nFix Knorr wymieszaj z wodą. Zalej podsmażone składniki płynem i zagotuj\n\n"+
+                    "Krok 4 \n\nKukurydzę i fasolkę odcedź. Ogórki i paprykę pokrój w drobną kostkę i dodaj wszystkie warzywa do zupy.\n\n",
+            //5
+            "Krok 1\n\n"+
+                    "Obierz i pokrój dynię na kawałki. Posiekaj cebulę i czosnek. Obierz i zetrzyj na tarce imbir. Przesmaż cebulę i czosnek na oleju.\n\n"+
+                    "Krok 2 \n\nDodaj dynię, imbir i cukier. Smaż przez 5 min razem. Dodaj 1 l wody i kostki bulionowe Knorr. Całość gotuj do miękkości, ok. 10 min.\n\n"+
+                    "Krok 3 \n\n Zmiksuj zupę na gładko. Dodaj mleko kokosowe i jeszcze raz zagotuj. Podawaj z pestkami dyni.\n\n",
+            //6
+            "Krok 1 \n\nRozpuść kostkę Rosołu z kury z pietruszką i lubczykiem Knorr w 3 szklankach gorącej wody.\n\n"+
+                    "Krok 2 \n\nRozmroź i obierz bób, dodaj do wywaru, po czym gotuj przez 10 minut.\n\n"+
+                    "Krok 3 \n\nDodaj topiony serek oraz zasmażkę Knorr. Zagotuj zupę, a następnie dopraw do smaku solą i pieprzem (jeśli uznasz to za konieczne).\n\n"+
+                    "Krok 4 \n\nKrem podawaj z posiekanym szczypiorkiem i grzankami z pszennego chleba.\n\n",
+            //7
+            "Krok 1 \n\nCebulę i czosnek posiekaj. Ser zetrzyj. Pomidory suszone pokrój w kostkę.\n\n"+
+                    "Krok 2 \n\nNa rozgrzanej oliwie zeszklij cebulę i czosnek. Dodaj mielone mięso i koncentrat pomidorowy smaż chwilę dodaj fix wymieszany z woda i suszone pomidory. Duś kilka minutaż sos zgęstnieje.\n\n"+
+                    "Krok 3 \n\nNaczynie żaroodporne wysmaruj masłem, wylej na spód 2 łyżki sosu. Na sosie ułóż pierwszą warstwę suchych płatów makaronu lasagne, rozprowadź 1/4 sosu, ułóż 2 plastry szynki.\n\n"+
+                    "Krok 4 \n\n Przykryj płatami lasagne. Czynność powtórz jeszcze 2 razy.\n\n"+
+                    "Krok 5 \n\n  Ostatnią warstwę makaronu posmaruj resztką sosu i posyp serem.\n\n"+
+                    "Krok 6 \n\n  Zapiekaj w piekarniku nagrzanym do temperatury 200 °C przez 30 minut. Danie podawaj na gorąco.\n\n",
+            //8
+            "Krok 1 \n\nSkładniki na sos do pizzy połącz ze sobą tak, by nie było grudek, dodaj mini kostkę czosnek Knorr i dopraw pieprzem do smaku.\n\n"+
+                    "Krok 2 \n\nSkładniki na ciasto do pizzy połącz ze sobą dobrze wyrabiając na stolnicy, odstaw na 10 minut do lodówki skropione wodą, po 10 minutach wyjmij do wyrośnięcia w ciepłym miejscu na 20 minut.\n\n"+
+                    "Krok 3 \n\nWyrośnięte ciasto podziel na trzy części. Stolnicę lub blat stołu podsyp mąką, połóż ciasto i rozwałkuj lub uformuj placek ręcznie. Placek powinien mieć około 28 centymetrów średnicy i 1 centymetr grubości.\n\n"+
+                    "Krok 4 \n\nPlacki umieść na blasze i posmaruj z wierzchu wcześniej przygotowanym sosem starając się zachować centymetr odstępu od rantu placka. \n\n"+
+                    "Krok 5 \n\nPizzę posyp po wierzchu serem, pozostałymi składnikami i ułóż plastry oscypka. Piecz w nagrzanym do 200 stopni piekarniku około 20 minut. Podawaj pizzę skropioną oliwą.\n\n",
+
+    };
 
     public Baza(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -114,6 +183,14 @@ public class Baza extends SQLiteOpenHelper {
         drawable26 = context.getApplicationContext().getResources().getDrawable(R.drawable.food10);
         drawable27 = context.getApplicationContext().getResources().getDrawable(R.drawable.food11);
         drawable28 = context.getApplicationContext().getResources().getDrawable(R.drawable.food12);
+        drawableP1 = context.getApplicationContext().getResources().getDrawable(R.drawable.nalesniki_kurczak);
+        drawableP2 = context.getApplicationContext().getResources().getDrawable(R.drawable.chinskie);
+        drawableP3 = context.getApplicationContext().getResources().getDrawable(R.drawable.meksykanska);
+        drawableP4 = context.getApplicationContext().getResources().getDrawable(R.drawable.dyniowa);
+        drawableP5 = context.getApplicationContext().getResources().getDrawable(R.drawable.serowa);
+        drawableP6 = context.getApplicationContext().getResources().getDrawable(R.drawable.lasagne);
+        drawableP7 = context.getApplicationContext().getResources().getDrawable(R.drawable.pizza);
+        drawableP8 = context.getApplicationContext().getResources().getDrawable(R.drawable.tagliatelle);
     }
 
     @Override
@@ -123,6 +200,8 @@ public class Baza extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_LISTA);
         db.execSQL(CREATE_TABLE_PRODUKTY);
         db.execSQL(CREATE_TABLE_LISTA_PRODUKTOW);
+        db.execSQL(CREATE_TABLE_PRZEPISY);
+        db.execSQL(CREATE_TABLE_PRZEPISY_PRODUKTY);
 
         createProduktyStart(new Produkt("bebiko", 1.2f, 4.5f,1), db);
         createProduktyStart(new Produkt("bebilon", 1.2f, 4.5f,1), db);
@@ -192,11 +271,11 @@ public class Baza extends SQLiteOpenHelper {
 
         long produkt = createAddedProdukt2(new Produkt("Mleko", 1.2f, 4.5f),db);
         long produkt2 = createAddedProdukt2(new Produkt("Jajka", 1.2f, 4.5f),db);
-
-
         long c = createAddedProduktLista(new Lista("Lista Startowa","12-04-2017","12-04-2017"), new long[] { produkt },db);
         createListaProdoktow(c,produkt2,db);
 
+    //    long c2 = createProduktyFromPrzepisy(initStartPrzepisy2(drawableP1,"KRR",opis[0],db),new long[] { produkt }, db);
+     //   createListaProdoktowFromPrzepis(c2, produkt2, db);
       //  createListaStart(new Lista("Lista startowa","12-04-2017","12-04-2017"),db);
 
 
@@ -229,6 +308,15 @@ public class Baza extends SQLiteOpenHelper {
         initStartKategorie(drawable28,"tluszcze",db);
         initStartKategorie(drawable28,"motoryzacja",db);
 
+
+        initStartPrzepisy(drawableP1,"Naleśniki z kurczakiem w sosie bolognese", opis[0], db);
+        initStartPrzepisy(drawableP2,"Naleśniki z kurczakiem w sosie bolognese", opis[1], db);
+        initStartPrzepisy(drawableP3,"Naleśniki z kurczakiem w sosie bolognese", opis[2], db);
+        initStartPrzepisy(drawableP4,"Naleśniki z kurczakiem w sosie bolognese", opis[3], db);
+        initStartPrzepisy(drawableP5,"Naleśniki z kurczakiem w sosie bolognese", opis[4], db);
+        initStartPrzepisy(drawableP6,"Naleśniki z kurczakiem w sosie bolognese", opis[5], db);
+        initStartPrzepisy(drawableP7,"Naleśniki z kurczakiem w sosie bolognese", opis[6], db);
+        initStartPrzepisy(drawableP8,"Naleśniki z kurczakiem w sosie bolognese", opis[7], db);
     }
 
     @Override
@@ -238,6 +326,8 @@ public class Baza extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LISTA);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUKTY);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LISTA_PRODUKTOW);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRZEPISY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRZEPISY_PRODUKTY);
         onCreate(db);
     }
 
@@ -310,6 +400,18 @@ public class Baza extends SQLiteOpenHelper {
         Drawable d = drawable;
         foto = imageViewToByte(d);
         createCategoryStart(new Category(name,foto),db);
+    }
+
+    private void initStartPrzepisy(Drawable drawable, String name, String opis, SQLiteDatabase db) {
+        Drawable d = drawable;
+        foto = imageViewToByte(d);
+        createPrzepisyStart(new Przepis(name, opis, foto),db);
+    }
+    private Przepis initStartPrzepisy2(Drawable drawable, String name, String opis, SQLiteDatabase db) {
+        Drawable d = drawable;
+        foto = imageViewToByte(d);
+        createPrzepisyStart(new Przepis(name, opis, foto),db);
+        return new Przepis(name,opis,foto);
     }
     /*
     private void initStartProdukty(String name,Float cena_min, Float cena_max, SQLiteDatabase db) {
@@ -521,25 +623,84 @@ public class Baza extends SQLiteOpenHelper {
         db.close();
 
     }
-/*
-    public long createListaProdoktow(AddedProdukt addedProdukt) {
+
+    private void createPrzepisyStart(Przepis przepis, SQLiteDatabase db) {
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_PRZEPISY, przepis.getName());
+        values.put(KEY_OPIS, przepis.getOpis());
+        values.put(KEY_IMAGE, przepis.getImage());
+        // insert row
+        db.insert(TABLE_PRZEPISY, null, values);
+
+    }
+    public void createPrzepisyStart(Przepis przepis) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_ID_LISTA, addedProdukt.getId_listy());
-        values.put(KEY_ID_PRODUKT, addedProdukt.getId_produktu());
-        values.put(KEY_ILOSC, addedProdukt.getIlosc());
+        values.put(KEY_PRZEPISY, przepis.getName());
+        values.put(KEY_OPIS, przepis.getOpis());
+        values.put(KEY_IMAGE, przepis.getImage());
+        // insert row
+        db.insert(TABLE_PRZEPISY, null, values);
+
+        db.close();
+
+    }
+
+    public long createProduktyFromPrzepisy(Przepis przepis, long[] addedProdukts, SQLiteDatabase db) {
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_PRZEPISY, przepis.getName());
+        values.put(KEY_OPIS, przepis.getOpis());
+        values.put(KEY_IMAGE, przepis.getImage());
 
         // insert row
-        long added_produkt_id = db.insert(TABLE_LISTA_PRODUKTOW, null, values);
+        long przepis_id = db.insert(TABLE_PRZEPISY, null, values);
 
-      //  for (long produktID : produktIDs) {
-    //
-     //   }
+        for (long addedProdukt : addedProdukts) {
+            createListaProdoktowFromPrzepis(przepis_id, addedProdukt,db);
+        }
+        //      db.close();
+        return przepis_id;
+    }
+    public void createListaProdoktowFromPrzepis(long produktID, long addedProduktID, SQLiteDatabase db) {
+        //    db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        //   values.put(KEY_ID_LISTA, addedProdukt.getId_listy());
+
+        values.put(KEY_ID_PRZEPISU, produktID);
+        values.put(KEY_ID_PRODUKT, addedProduktID);
+        //  values.put(KEY_ILOSC, addedProdukt.getIlosc());
+
+        // insert row
+        db.insert(TABLE_PRZEPISY_PRODUKTY, null, values);
+
+        //  for (long produktID : produktIDs) {
+        //
+        //   }
+        //   db.close();
+        // return added_produkt_id;
+    }
+
+    public long createListaProdoktowFromPrzepis(long produktID, long addedProduktID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        //   values.put(KEY_ID_LISTA, addedProdukt.getId_listy());
+
+        values.put(KEY_ID_PRZEPISU, produktID);
+        values.put(KEY_ID_PRODUKT, addedProduktID);
+        //  values.put(KEY_ILOSC, addedProdukt.getIlosc());
+
+        // insert row
+        long added_produkt_id = db.insert(TABLE_PRZEPISY_PRODUKTY, null, values);
+
+
         db.close();
         return added_produkt_id;
     }
-*/
     /**
      *  get single category, the last
      */
@@ -813,37 +974,35 @@ public class Baza extends SQLiteOpenHelper {
 
     }
 
-    /**
-     * getting all produkt
-     * */
-/*
-    public List<AddedProdukt> getAllAddedProdukt() {
-        List<AddedProdukt> lstAddedProdukt = new ArrayList<AddedProdukt>();
-        String selectQuery = "SELECT * FROM " + TABLE_LISTA_PRODUKTOW;
-        // Log.e(LOG, selectQuery);
+    public List<Przepis> getAllPrzepisy() {
+        List<Przepis> lstPrzepisy = new ArrayList<Przepis>();
+        String selectQuery = "SELECT  * FROM " + TABLE_PRZEPISY;
+
+        //  Log.e(LOG, selectQuery);
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
 
-
         // looping through all rows and adding to list
         if (c.moveToFirst()) {
             do {
+                Przepis przepis = new Przepis();
+                przepis.setId(c.getInt((c.getColumnIndex(KEY_ID))));
+                przepis.setName((c.getString(c.getColumnIndex(KEY_PRZEPISY))));
+                przepis.setOpis(c.getString(c.getColumnIndex(KEY_OPIS)));
+                przepis.setImage(c.getBlob(c.getColumnIndex(KEY_IMAGE)));
 
-                AddedProdukt addp = new AddedProdukt();
-                addp.setId(c.getInt(c.getColumnIndex(KEY_ID)));
-                addp.setId_listy(c.getInt(c.getColumnIndex(KEY_ID_LISTA)));
-                addp.setId_produktu(c.getInt(c.getColumnIndex(KEY_ID_PRODUKT)));
-                addp.setIlosc(c.getInt(c.getColumnIndex(KEY_ILOSC)));
-
-               lstAddedProdukt.add(addp);
+                // adding category list
+                lstPrzepisy.add(przepis);
             } while (c.moveToNext());
         }
 
         c.close();
-        return lstAddedProdukt;
+        return lstPrzepisy;
     }
-    */
+
+
+
     /**
  * Updating a katogoria
  */
@@ -1005,6 +1164,7 @@ public class Baza extends SQLiteOpenHelper {
         String id_string = String.valueOf(id);
         return id_string;
     }
+
     public StringBuilder WypiszKategorie() {
 
         SQLiteDatabase db = this.getReadableDatabase();

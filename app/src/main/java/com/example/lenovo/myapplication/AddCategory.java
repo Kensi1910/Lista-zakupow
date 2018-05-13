@@ -52,7 +52,7 @@ public class AddCategory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_category);
-
+        setTitle(" Dodaj kategorie ");
         init();
 
         baza = new Baza(getApplicationContext());

@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity
     private RecyclerViewAdapter mAdapter;
     private static String listName;
     private static String lstId;
+    public static int[] itemCounter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +118,12 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -184,6 +192,7 @@ public class MainActivity extends AppCompatActivity
                     newData2 = data.getStringExtra("key_lista_data_p");
 
                     addNewList(new Lista(newName, newData, newData2));
+
                 }
         }
     }
@@ -192,7 +201,6 @@ public class MainActivity extends AppCompatActivity
     public void addNewList(Lista lista){
         lstLista.add(0, lista);
         mAdapter.notifyItemInserted(0);
-
     }
 
     public void removeAllLists() {
@@ -207,6 +215,7 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
         listName = lista.getName();
         lstId = baza.getIDListy(listName);
+//        itemCounter[Integer.parseInt(lstId)] = 0;
         intent.putExtra("ListId", lstId);
         intent.putExtra("ListName", listName);
         startActivity(intent);

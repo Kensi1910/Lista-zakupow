@@ -51,7 +51,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         holder.tv_name.setText(mData.get(position).getName());
         holder.tv_data.setText(mData.get(position).getData());
-
+    //    if (MainActivity.itemCounter[position] < 0) {
+       //     MainActivity.itemCounter[position] = 0;
+     //   }
+        holder.tv_count_produkt.setText("0");
         holder.settings_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,6 +138,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private LinearLayout item_contact;
         private TextView tv_name;
         private TextView tv_data;
+        private TextView tv_count_produkt;
         private ImageView settings_icon;
 
         public MyViewHolder(View itemView) {
@@ -144,6 +148,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tv_name = (TextView) itemView.findViewById(R.id.name_list);
             tv_data = (TextView) itemView.findViewById(R.id.create_list_date);
             settings_icon = (ImageView) itemView.findViewById(R.id.settings_list_icon);
+            tv_count_produkt = (TextView) itemView.findViewById(R.id.cout_produkt);
             itemView.setTag(itemView);
             itemView.setOnClickListener(this);
         }

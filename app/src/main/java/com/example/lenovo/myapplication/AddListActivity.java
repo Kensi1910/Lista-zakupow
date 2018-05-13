@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,8 +20,7 @@ public class AddListActivity extends AppCompatActivity {
 
     private EditText shop_list_name;
     private Button button_wyslij;
-    private Button button_wypisz_baza;
-    private TextView tv_wyswietl_all_lista;
+    private Switch dataSwitch;
     public static Baza baza;
     private Lista lista;
 
@@ -27,12 +28,26 @@ public class AddListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_list);
-
+        setTitle(" Dodaj Liste ");
         init();
         baza = new Baza(this);
 
         addListenerOnButton();
 
+        dataSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                   /*buttonData.setVisibility(View.VISIBLE);
+                   buttonTime.setVisibility(View.VISIBLE);*/
+                    Intent intent = new Intent(AddListActivity.this, SetReminderWindow.class);
+                    startActivity(intent);
+                }/*else{
+                   buttonData.setVisibility(View.INVISIBLE);
+                   buttonTime.setVisibility(View.INVISIBLE);
+               }*/
+            }
+        });
 
     }
 
@@ -72,7 +87,6 @@ public class AddListActivity extends AppCompatActivity {
                     intent.putExtra("key_lista_data_p",listDataPString);
                     setResult(Activity.RESULT_OK, intent);
                     finish();
-                    //    }
                 }
 
             }
@@ -82,6 +96,7 @@ public class AddListActivity extends AppCompatActivity {
     private void init() {
         button_wyslij = (Button) findViewById(R.id.button_send);
         shop_list_name = (EditText) findViewById(R.id.new_list_edit_text);
+        dataSwitch = (Switch) findViewById(R.id.switch1);
     }
     public static Intent makeIntent(Context context) {
         return new Intent(context, AddListActivity.class);

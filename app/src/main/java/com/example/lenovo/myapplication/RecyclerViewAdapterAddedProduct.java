@@ -21,10 +21,13 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
 
     private Context mContext;
     private List<Produkt> mData;
+ //   final String id_listy = MainActivity.getListId();
+
 
     public RecyclerViewAdapterAddedProduct(Context mContext, List<Produkt> mData) {
         this.mContext = mContext;
         this.mData = mData;
+
     }
 
     @Override
@@ -41,6 +44,7 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
         holder.chkSelected.setChecked(mData.get(position).isSelected());
         holder.chkSelected.setTag(mData.get(position));
 
+
         holder.chkSelected.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
@@ -50,6 +54,7 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
 
                 produkt.setSelected((cb.isChecked()));
                 setStrikeThroughText(holder, position);
+           //     MainActivity.itemCounter[Integer.parseInt(id_listy)]--;
              //   notifyDataSetChanged();
           //      produkt.getName()
               //  mData.get(position).setSelected(cb.isChecked());
@@ -65,6 +70,7 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
              //   notifyDataSetChanged();
             }
         });
+
     }
 
     public void updateData(List<Produkt> viewModels) {
@@ -73,10 +79,13 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
         notifyDataSetChanged();
     }
     @Override
-    public int getItemCount() {
+    public  int getItemCount() {
         return mData.size();
     }
 
+  //  public  static int getItemCounter() {
+    //    return itemCounter;
+  //  }
     private void strikeThroughText(TextView textView) {
         textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     }

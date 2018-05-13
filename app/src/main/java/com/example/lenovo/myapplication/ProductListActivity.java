@@ -28,6 +28,7 @@ public class ProductListActivity extends AppCompatActivity {
     private Button button_show_baza;
     private TextView tv_name_list;
     ArrayList<Produkt> arraylist;
+    public static int counterItem;
     public static ArrayList<Produkt> produktyList2;
 
 
@@ -36,7 +37,7 @@ public class ProductListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
         init();
-
+        setTitle(" Produkty ");
         String nazwa2 = getIntent().getStringExtra("ListName");
         String id = getIntent().getStringExtra("ListId");
         tv_name_list.setText(nazwa2);
@@ -47,6 +48,7 @@ public class ProductListActivity extends AppCompatActivity {
         lstAddedProduct = new ArrayList<>();
         arraylist = new ArrayList<>();
         lstAddedProduct = baza.getAddedProductyID(id);
+        counterItem = lstAddedProduct.size();
 
         mRecylerView = (RecyclerView) findViewById(R.id.my_recycler_view_add_produkt);
         mRecylerView.setLayoutManager(new LinearLayoutManager(this));

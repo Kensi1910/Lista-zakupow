@@ -33,7 +33,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/phone_contact"
+                android:id="@+id/cout_produkt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1 produkt"

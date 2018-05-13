@@ -13,14 +13,17 @@ import java.util.List;
 public class przepisy_activity extends AppCompatActivity {
 
     private List<Przepis> listPrzepis;
+    public static Baza baza;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_przepisy_activity);
+        setTitle(" Przepisy ");
         GridView gridView = (GridView) findViewById(R.id.gridview);
-
+        baza = new Baza(this);
         listPrzepis = new ArrayList<>();
+        listPrzepis = baza.getAllPrzepisy();
      //   listPrzepis.add(new Przepis("Tagliatelle z sosem czosnkowym i grillowanym kurczakiem", R.drawable.agenda ) );
 
         gridView.setAdapter(new PrzepisyAdapter(this, listPrzepis));

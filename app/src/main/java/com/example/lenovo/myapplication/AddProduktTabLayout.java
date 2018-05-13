@@ -51,7 +51,7 @@ public class AddProduktTabLayout extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_produkt_tab_layout);
-
+        setTitle("  ");
         produktyList2 = new ArrayList<>();
 
         addNewCategoryButton = (Button) findViewById(R.id.button_add_new_category);

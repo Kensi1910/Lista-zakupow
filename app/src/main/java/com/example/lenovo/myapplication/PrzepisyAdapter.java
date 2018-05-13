@@ -1,6 +1,8 @@
 package com.example.lenovo.myapplication;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -190,6 +192,7 @@ public class PrzepisyAdapter extends BaseAdapter {
         this.mData = mData;
 
 
+        /*
         mData.add(new Przepis("Naleśniki z kurczakiem w sosie bolognese", R.drawable.nalesniki_kurczak ) );
         mData.add(new Przepis("Kurczak po chińsku z mrożonymi warzywami", R.drawable.chinskie ) );
         mData.add(new Przepis("Zupa meksykańska z ogórkiem i papryką", R.drawable.meksykanska ) );
@@ -198,7 +201,7 @@ public class PrzepisyAdapter extends BaseAdapter {
         mData.add(new Przepis("Lasagne z mięsa mielonego drobiowego", R.drawable.lasagne ) );
         mData.add(new Przepis("Pizza góralska", R.drawable.pizza ) );
         mData.add(new Przepis("Tagliatelle z sosem czosnkowym i grillowanym kurczakiem", R.drawable.tagliatelle ) );
-
+*/
 
 
     }
@@ -241,7 +244,11 @@ public class PrzepisyAdapter extends BaseAdapter {
         picture = (ImageView) v.findViewById(R.id.picture);
         name = (TextView) v.findViewById(R.id.text);
         Przepis item = getItem(i);
-        picture.setImageResource(item.getDrawableId());
+        final byte[] przepisyImage = getItem(i).getImage();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(przepisyImage, 0, przepisyImage.length);
+
+        //  picture.setImageResource(item.getDrawableId());
+        picture.setImageBitmap(bitmap);
         name.setText(item.getName());
         return v;
     }

@@ -37,6 +37,7 @@ public class RecyclerViewAdapterProdukt extends RecyclerView.Adapter<RecyclerVie
     Lista lista;
     private EditText nameEditText;
 
+
     public RecyclerViewAdapterProdukt(Context mContext, List<Produkt> mData) {
         this.mContext = mContext;
         this.mData = mData;
@@ -56,7 +57,6 @@ public class RecyclerViewAdapterProdukt extends RecyclerView.Adapter<RecyclerVie
         final int pos = position;
         final String name_listy = MainActivity.getListName();
       //  final int id_listy = MainActivity.getListId();
-        final String id_listy = MainActivity.getListId();
         holder.tvNazwa.setText(mData.get(position).getName());
         holder.chkSelected.setChecked(mData.get(position).isSelected());
         holder.chkSelected.setTag(mData.get(position));
@@ -69,10 +69,14 @@ public class RecyclerViewAdapterProdukt extends RecyclerView.Adapter<RecyclerVie
                 contact.setSelected((cb.isChecked()));
                 mData.get(pos).setSelected(cb.isChecked());
 
-                int id_produktu = mData.get(pos).getId();
+                final String id_listy = MainActivity.getListId();
                 int id_listyy = Integer.parseInt(id_listy);
 
-            //    Toast.makeText(
+                int id_produktu = mData.get(pos).getId();
+             //   MainActivity.itemCounter[id_listyy]++;
+
+
+                //    Toast.makeText(
                   //      v.getContext(),
                   //      "Clicked on Checkbox: " + cb.getText() + " produkt: " + id_produktu + "Nazwa listy: " + name_listy + "id listy: " + id_listyy, Toast.LENGTH_LONG).show();
 

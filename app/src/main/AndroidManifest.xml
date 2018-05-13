@@ -33,7 +33,12 @@
         <activity android:name=".ChangePictureCategoryActivity" />
         <activity android:name=".ProductListActivity" />
         <activity android:name=".przepisy_activity" />
-        <activity android:name=".PrzepisyDetailActivity"></activity>
+        <activity android:name=".PrzepisyDetailActivity" />
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:process=":remote" />
+        <activity android:name=".SetReminderWindow"></activity>
     </application>
 
 </manifest>

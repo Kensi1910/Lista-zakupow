@@ -6,15 +6,12 @@
     android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     tools:context="com.example.lenovo.myapplication.PrzepisyDetailActivity">
-    >
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="500px"
-
         android:theme="@style/AppTheme.AppBarOverlay"
-        android:id="@+id/appbar_layout"
-        >
+        android:id="@+id/appbar_layout">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
@@ -39,7 +36,6 @@
         </android.support.design.widget.CollapsingToolbarLayout>
 
 
-
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
@@ -61,17 +57,12 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="2dp"
-                android:layout_gravity="center_horizontal"
-                >
+                android:layout_gravity="center_horizontal">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:paddingTop="16dp">
-
-
-
-
 
 
                     <TextView
