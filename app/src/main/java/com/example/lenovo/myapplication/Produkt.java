@@ -16,6 +16,8 @@ public class Produkt implements Parcelable {
     private Float cena_max = 0.0f;
     private int id_kategoria;
     private boolean isSelected;
+    private Float ilosc;
+    private String jednostka;
 
     public Produkt(){
 
@@ -36,6 +38,39 @@ public class Produkt implements Parcelable {
         this.cena_min = cena_min;
         this.cena_max = cena_max;
         this.id_kategoria = id_kategoria;
+    }
+
+    public Produkt(String nazwa, Float cena_min, Float cena_max, int id_kategoria, Float ilosc) {
+        this.nazwa = nazwa;
+        this.cena_min = cena_min;
+        this.cena_max = cena_max;
+        this.id_kategoria = id_kategoria;
+        this.ilosc = ilosc;
+    }
+    public Produkt(String nazwa, Float cena_min, Float cena_max, int id_kategoria, Float ilosc, String jednostka) {
+        this.nazwa = nazwa;
+        this.cena_min = cena_min;
+        this.cena_max = cena_max;
+        this.id_kategoria = id_kategoria;
+        this.ilosc = ilosc;
+        this.jednostka = jednostka;
+    }
+
+
+    public String getJednostka() {
+        return jednostka;
+    }
+
+    public void setJednostka(String jednostka) {
+        this.jednostka = jednostka;
+    }
+
+    public Float getIlosc() {
+        return ilosc;
+    }
+
+    public void setIlosc(Float ilosc) {
+        this.ilosc = ilosc;
     }
 
     public String getName(){
@@ -97,6 +132,7 @@ public class Produkt implements Parcelable {
         parcel.writeString(nazwa);
         parcel.writeFloat(cena_min);
         parcel.writeFloat(cena_max);
+        parcel.writeFloat(ilosc);
      //   parcel.writeBooleanArray(isSelected);
     }
 
@@ -116,5 +152,6 @@ public class Produkt implements Parcelable {
         nazwa = in.readString();
         cena_min = in.readFloat();
         cena_max = in.readFloat();
+        ilosc = in.readFloat();
     }
 }

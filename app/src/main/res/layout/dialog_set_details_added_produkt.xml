@@ -1,0 +1,93 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_ilosc_icon"
+            android:layout_width="63dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_account_circle_black_24dp" />
+
+        <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="85dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="158dp"
+                android:layout_height="wrap_content"
+                android:text="Ilosc" />
+
+            <TextView
+                android:layout_width="132dp"
+
+                android:layout_height="wrap_content"
+                android:text="Jednostka" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_edit_ilosc"
+                android:layout_width="158dp"
+                android:layout_height="wrap_content"
+                android:hint="Ilosc"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/et_edit_jednostka"
+                android:layout_width="132dp"
+                android:layout_height="wrap_content"
+                android:hint="Jednostka"
+                android:textAlignment="center" />
+        </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_cena_icon"
+            android:layout_width="63dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_euro_symbol_black_24dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cena"/>
+           <EditText
+               android:id="@+id/et_edit_cena"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textAlignment="center"
+               android:hint="Cena"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

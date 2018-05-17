@@ -89,7 +89,7 @@ public class AddProductActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String name = add_new_produkt_edit_text.getText().toString();
                 int id_kategori_int = Integer.parseInt(id_kategori);
-                Produkt produkt = new Produkt(name, 0.0f, 0.0f, id_kategori_int);
+                Produkt produkt = new Produkt(name, 0.0f, 0.0f, id_kategori_int, 0.0f, "szt");
                 baza.createProdukt(produkt);
               //  Toast.makeText(getApplicationContext(), "Dodano " + name, Toast.LENGTH_LONG).show();
                 add_new_produkt_edit_text.setText("");

@@ -60,6 +60,7 @@ public class Baza extends SQLiteOpenHelper {
     private static final String KEY_ID_LISTA = "id_lista";
     private static final String KEY_ID_PRODUKT = "id_produkt";
     private static final String KEY_ILOSC = "ilosc";
+    private static final String KEY_JEDNOSTKA = "jednostka";
     private static final String KEY_PRZEPISY = "przepisy_nazwa";
     private static final String KEY_OPIS = "przepisy_opis";
     private static final String KEY_ID_PRZEPISU = "id_przepisy";
@@ -74,14 +75,14 @@ public class Baza extends SQLiteOpenHelper {
 
     String CREATE_TABLE_PRODUKTY = "CREATE TABLE " + TABLE_PRODUKTY + "("
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_PRODUKT + " TEXT NOT NULL,"
-            + KEY_CENA_MIN + " FLOAT NOT NULL," + KEY_CENA_MAX + " FLOAT NOT NULL,"
-            + KEY_ID_KATEGORIA + " INTEGER," + "FOREIGN KEY (" + KEY_ID_KATEGORIA + ") REFERENCES "
+            + KEY_CENA_MIN + " FLOAT NOT NULL," + KEY_CENA_MAX + " FLOAT NOT NULL," + KEY_ILOSC + " FLOAT,"
+            + KEY_JEDNOSTKA + " TEXT," + KEY_ID_KATEGORIA + " INTEGER,"  + "FOREIGN KEY (" + KEY_ID_KATEGORIA + ") REFERENCES "
              + TABLE_KATEGORIA + "(" + KEY_ID + "))";
 
     String CREATE_TABLE_LISTA_PRODUKTOW = "CREATE TABLE " + TABLE_LISTA_PRODUKTOW + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_ID_LISTA
                 + " INTEGER NOT NULL," + KEY_ID_PRODUKT + " INTEGER NOT NULL,"
-                + KEY_ILOSC + " INTEGER," + " FOREIGN KEY (" + KEY_ID_LISTA + ") REFERENCES " + TABLE_LISTA + "("
+                + KEY_ILOSC + " FLOAT," + " FOREIGN KEY (" + KEY_ID_LISTA + ") REFERENCES " + TABLE_LISTA + "("
                 + KEY_ID + ")," + " FOREIGN KEY (" + KEY_ID_PRODUKT + ") REFERENCES " + TABLE_PRODUKTY + "("
                 + KEY_ID + "))";
 
@@ -203,74 +204,74 @@ public class Baza extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_PRZEPISY);
         db.execSQL(CREATE_TABLE_PRZEPISY_PRODUKTY);
 
-        createProduktyStart(new Produkt("bebiko", 1.2f, 4.5f,1), db);
-        createProduktyStart(new Produkt("bebilon", 1.2f, 4.5f,1), db);
-        createProduktyStart(new Produkt("bobofrut", 1.2f, 4.5f,1), db);
-        createProduktyStart(new Produkt("chusteczki nawilzane", 1.2f, 4.5f,1), db);
-        createProduktyStart(new Produkt("gerber", 1.2f, 4.5f,1), db);
-        createProduktyStart(new Produkt("herbatka", 1.2f, 4.5f,1), db);
-        createProduktyStart(new Produkt("kaszka", 1.2f, 4.5f,1), db);
-        createProduktyStart(new Produkt("kleik", 1.2f, 4.5f,1), db);
-        createProduktyStart(new Produkt("krem pielegnacyjny", 1.2f, 4.5f,1), db);
-        createProduktyStart(new Produkt("obiadek", 1.2f, 4.5f,1), db);
-        createProduktyStart(new Produkt("oliwka", 1.2f, 4.5f,1), db);
-        createProduktyStart(new Produkt("pampersy", 1.2f, 4.5f,1), db);
-        createProduktyStart(new Produkt("pieluchy", 1.2f, 4.5f,1), db);
-        createProduktyStart(new Produkt("szampon dla dzieci", 1.2f, 4.5f,1), db);
+        createProduktyStart(new Produkt("bebiko", 1.2f, 4.5f,1, 0.0f, "szt"), db);
+        createProduktyStart(new Produkt("bebilon", 1.2f, 4.5f,1, 0.0f, "szt"), db);
+        createProduktyStart(new Produkt("bobofrut", 1.2f, 4.5f,1, 0.0f, "g"), db);
+        createProduktyStart(new Produkt("chusteczki nawilzane", 1.2f, 4.5f,1, 0.0f), db);
+        createProduktyStart(new Produkt("gerber", 1.2f, 4.5f,1, 0.0f), db);
+        createProduktyStart(new Produkt("herbatka", 1.2f, 4.5f,1, 0.0f), db);
+        createProduktyStart(new Produkt("kaszka", 1.2f, 4.5f,1, 0.0f), db);
+        createProduktyStart(new Produkt("kleik", 1.2f, 4.5f,1, 0.0f), db);
+        createProduktyStart(new Produkt("krem pielegnacyjny", 1.2f, 4.5f,1, 0.0f), db);
+        createProduktyStart(new Produkt("obiadek", 1.2f, 4.5f,1, 0.0f), db);
+        createProduktyStart(new Produkt("oliwka", 1.2f, 4.5f,1, 0.0f), db);
+        createProduktyStart(new Produkt("pampersy", 1.2f, 4.5f,1, 0.0f), db);
+        createProduktyStart(new Produkt("pieluchy", 1.2f, 4.5f,1, 0.0f), db);
+        createProduktyStart(new Produkt("szampon dla dzieci", 1.2f, 4.5f,1, 0.0f), db);
 
-        createProduktyStart(new Produkt("basmati", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("błonnik", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("cukier", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("cukier brazowy", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("cukier puder", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("cukier trzcinowy", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("granola", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("kasza", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("kasza gryczana", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("kasza jaglana", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("kasza jeczmienna", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("kasza manna", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("komosa ryzowa", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("kuskus", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("maka", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("maka krupczatka", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("maka pszenna", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("makaron", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("makaron lasagne", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("makaron muszelki", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("makaron nitki", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("makaron ryzowy", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("makaron spaghetti", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("makaron swiderki", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("makaron wieleoziarnisty", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("makaron zielony", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("maka tortowa", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("maka ziemniaczana", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("muesli", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("musli", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("otreby", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("owoce kandyzowane", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("owsianka", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("platki", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("platki kukurydziane", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("platki owsiane", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("platki ryzowe", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("ryz", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("ryz basmati", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("ryz bialy", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("ryz brazowy", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("ryz paraboiled", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("skrobia kukurydziana", 1.2f, 4.5f,2), db);
-        createProduktyStart(new Produkt("slodzik", 1.2f, 4.5f,2), db);
+        createProduktyStart(new Produkt("basmati", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("błonnik", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("cukier", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("cukier brazowy", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("cukier puder", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("cukier trzcinowy", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("granola", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("kasza", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("kasza gryczana", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("kasza jaglana", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("kasza jeczmienna", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("kasza manna", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("komosa ryzowa", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("kuskus", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("maka", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("maka krupczatka", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("maka pszenna", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("makaron", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("makaron lasagne", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("makaron muszelki", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("makaron nitki", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("makaron ryzowy", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("makaron spaghetti", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("makaron swiderki", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("makaron wieleoziarnisty", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("makaron zielony", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("maka tortowa", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("maka ziemniaczana", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("muesli", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("musli", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("otreby", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("owoce kandyzowane", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("owsianka", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("platki", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("platki kukurydziane", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("platki owsiane", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("platki ryzowe", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("ryz", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("ryz basmati", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("ryz bialy", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("ryz brazowy", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("ryz paraboiled", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("skrobia kukurydziana", 1.2f, 4.5f,2, 0.0f), db);
+        createProduktyStart(new Produkt("slodzik", 1.2f, 4.5f,2, 0.0f), db);
 
-        createProduktyStart(new Produkt("bita smietana", 1.2f, 4.5f,3), db);
-        createProduktyStart(new Produkt("bita smietana w proszku", 1.2f, 4.5f,3), db);
-        createProduktyStart(new Produkt("bita smietana w sprayu", 1.2f, 4.5f,3), db);
-        createProduktyStart(new Produkt("budyn", 1.2f, 4.5f,3), db);
+        createProduktyStart(new Produkt("bita smietana", 1.2f, 4.5f,3, 0.0f), db);
+        createProduktyStart(new Produkt("bita smietana w proszku", 1.2f, 4.5f,3, 0.0f), db);
+        createProduktyStart(new Produkt("bita smietana w sprayu", 1.2f, 4.5f,3, 0.0f), db);
+        createProduktyStart(new Produkt("budyn", 1.2f, 4.5f,3, 0.0f), db);
 
 
-        long produkt = createAddedProdukt2(new Produkt("Mleko", 1.2f, 4.5f),db);
-        long produkt2 = createAddedProdukt2(new Produkt("Jajka", 1.2f, 4.5f),db);
+        long produkt = createAddedProdukt2(new Produkt("Mleko", 1.2f, 4.5f,5, 0.0f),db);
+        long produkt2 = createAddedProdukt2(new Produkt("Jajka", 1.2f, 4.5f,5, 0.0f),db);
         long c = createAddedProduktLista(new Lista("Lista Startowa","12-04-2017","12-04-2017"), new long[] { produkt },db);
         createListaProdoktow(c,produkt2,db);
 
@@ -510,6 +511,8 @@ public class Baza extends SQLiteOpenHelper {
         values.put(KEY_CENA_MIN, produkt.getCena_min());
         values.put(KEY_CENA_MAX, produkt.getCena_max());
         values.put(KEY_ID_KATEGORIA, produkt.getId_kategoria());
+        values.put(KEY_ILOSC, produkt.getIlosc());
+        values.put(KEY_JEDNOSTKA, produkt.getJednostka());
 
         // insert row
         long produkt_id = db.insert(TABLE_PRODUKTY, null, values);
@@ -530,7 +533,9 @@ public class Baza extends SQLiteOpenHelper {
         values.put(KEY_PRODUKT, produkt.getName());
         values.put(KEY_CENA_MIN, produkt.getCena_min());
         values.put(KEY_CENA_MAX, produkt.getCena_max());
+        values.put(KEY_ILOSC, produkt.getIlosc());
         values.put(KEY_ID_KATEGORIA, produkt.getId_kategoria());
+        values.put(KEY_JEDNOSTKA, produkt.getJednostka());
 
         // insert row
         long produkt_id = db.insert(TABLE_PRODUKTY, null, values);
@@ -578,15 +583,36 @@ public class Baza extends SQLiteOpenHelper {
        // return added_produkt_id;
     }
 
+    /*
     public long createListaProdoktow(long produktID, long addedProduktID) {
         SQLiteDatabase db = this.getWritableDatabase();
-
+        Produkt produkt = new Produkt();
+        produkt = getProduktByID(produktID);
         ContentValues values = new ContentValues();
         //   values.put(KEY_ID_LISTA, addedProdukt.getId_listy());
 
         values.put(KEY_ID_LISTA, produktID);
         values.put(KEY_ID_PRODUKT, addedProduktID);
-        //  values.put(KEY_ILOSC, addedProdukt.getIlosc());
+        values.put(KEY_ILOSC, .getIlosc());
+
+        // insert row
+        long added_produkt_id = db.insert(TABLE_LISTA_PRODUKTOW, null, values);
+
+
+        db.close();
+        return added_produkt_id;
+    }
+*/
+    public long createListaProdoktow(long produktID, long addedProduktID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+      //  Produkt produkt = new Produkt();
+//        produkt = getProduktByID(produktID);
+        ContentValues values = new ContentValues();
+        //   values.put(KEY_ID_LISTA, addedProdukt.getId_listy());
+
+        values.put(KEY_ID_LISTA, produktID);
+        values.put(KEY_ID_PRODUKT, addedProduktID);
+      //  values.put(KEY_ILOSC, produkt.getIlosc());
 
         // insert row
         long added_produkt_id = db.insert(TABLE_LISTA_PRODUKTOW, null, values);
@@ -603,6 +629,8 @@ public class Baza extends SQLiteOpenHelper {
         values.put(KEY_CENA_MIN, produkt.getCena_min());
         values.put(KEY_CENA_MAX, produkt.getCena_max());
         values.put(KEY_ID_KATEGORIA, produkt.getId_kategoria());
+        values.put(KEY_ILOSC, produkt.getIlosc());
+        values.put(KEY_JEDNOSTKA, produkt.getJednostka());
 
         // insert row
         db.insert(TABLE_PRODUKTY, null, values);
@@ -616,6 +644,8 @@ public class Baza extends SQLiteOpenHelper {
         values.put(KEY_CENA_MIN, produkt.getCena_min());
         values.put(KEY_CENA_MAX, produkt.getCena_max());
         values.put(KEY_ID_KATEGORIA, produkt.getId_kategoria());
+        values.put(KEY_ILOSC, produkt.getIlosc());
+        values.put(KEY_JEDNOSTKA, produkt.getJednostka());
 
         // insert row
         db.insert(TABLE_PRODUKTY, null, values);
@@ -768,11 +798,31 @@ public class Baza extends SQLiteOpenHelper {
         pdt.setCena_min(c.getFloat(c.getColumnIndex(KEY_CENA_MIN)));
         pdt.setCena_max(c.getFloat(c.getColumnIndex(KEY_CENA_MAX)));
         pdt.setId_kategoria(c.getInt(c.getColumnIndex(KEY_ID_KATEGORIA)));
+        pdt.setIlosc(c.getFloat(c.getColumnIndex(KEY_ILOSC)));
+        pdt.setJednostka(c.getString(c.getColumnIndex(KEY_JEDNOSTKA)));
 
         c.close();
         return pdt;
     }
 
+    public Float getIloscByName(String name) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_PRODUKTY + " WHERE " + KEY_PRODUKT + " = '" + name + "'";
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToLast();
+
+        Produkt pdt = new Produkt();
+
+      //  pdt.setIlosc(c.getFloat(c.getColumnIndex(KEY_ILOSC)));
+        Float f = c.getFloat(c.getColumnIndex(KEY_ILOSC));
+        c.close();
+        return f;
+
+    }
     public Produkt getProduktByID(int produkt_id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -789,6 +839,8 @@ public class Baza extends SQLiteOpenHelper {
         pdt.setCena_min(c.getFloat(c.getColumnIndex(KEY_CENA_MIN)));
         pdt.setCena_max(c.getFloat(c.getColumnIndex(KEY_CENA_MAX)));
         pdt.setId_kategoria(c.getInt(c.getColumnIndex(KEY_ID_KATEGORIA)));
+        pdt.setIlosc(c.getFloat(c.getColumnIndex(KEY_ILOSC)));
+        pdt.setJednostka(c.getString(c.getColumnIndex(KEY_JEDNOSTKA)));
 
         c.close();
         return pdt;
@@ -838,6 +890,8 @@ public class Baza extends SQLiteOpenHelper {
                         pdt.setCena_min(c.getFloat(c.getColumnIndex(KEY_CENA_MIN)));
                         pdt.setCena_max(c.getFloat(c.getColumnIndex(KEY_CENA_MAX)));
                         pdt.setId_kategoria(c.getInt(c.getColumnIndex(KEY_ID_KATEGORIA)));
+                        pdt.setIlosc(c.getFloat(c.getColumnIndex(KEY_ILOSC)));
+                        pdt.setJednostka(c.getString(c.getColumnIndex(KEY_JEDNOSTKA)));
 
                         // adding category list
                         lstProdukt.add(pdt);
@@ -935,6 +989,8 @@ public class Baza extends SQLiteOpenHelper {
                 pdt.setCena_min(c.getFloat(c.getColumnIndex(KEY_CENA_MIN)));
                 pdt.setCena_max(c.getFloat(c.getColumnIndex(KEY_CENA_MAX)));
                 pdt.setId_kategoria(c.getInt(c.getColumnIndex(KEY_ID_KATEGORIA)));
+                pdt.setIlosc(c.getFloat(c.getColumnIndex(KEY_ILOSC)));
+                pdt.setJednostka(c.getString(c.getColumnIndex(KEY_JEDNOSTKA)));
 
                 // adding category list
                 lstProdukt.add(pdt);
@@ -963,6 +1019,8 @@ public class Baza extends SQLiteOpenHelper {
                 pdt.setCena_min(c.getFloat(c.getColumnIndex(KEY_CENA_MIN)));
                 pdt.setCena_max(c.getFloat(c.getColumnIndex(KEY_CENA_MAX)));
                 pdt.setId_kategoria(c.getInt(c.getColumnIndex(KEY_ID_KATEGORIA)));
+                pdt.setIlosc(c.getFloat(c.getColumnIndex(KEY_ILOSC)));
+                pdt.setJednostka(c.getString(c.getColumnIndex(KEY_JEDNOSTKA)));
 
                 // adding category list
                 lstProdukt.add(pdt);
@@ -1043,8 +1101,9 @@ public class Baza extends SQLiteOpenHelper {
         values.put(KEY_PRODUKT, produkt.getName());
         values.put(KEY_CENA_MIN, produkt.getCena_min());
         values.put(KEY_CENA_MAX, produkt.getCena_max());
-        //   values.put(KEY_ID_KATEGORIA, produkt.getId_kategoria());
-
+        values.put(KEY_ID_KATEGORIA, produkt.getId_kategoria());
+        values.put(KEY_ILOSC, produkt.getIlosc());
+        values.put(KEY_JEDNOSTKA, produkt.getJednostka());
         return db.update(TABLE_PRODUKTY, values, KEY_PRODUKT + " = ?",
                 new String[] { String.valueOf(name) });
     }
