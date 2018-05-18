@@ -132,7 +132,7 @@ public class Produkt implements Parcelable {
         parcel.writeString(nazwa);
         parcel.writeFloat(cena_min);
         parcel.writeFloat(cena_max);
-        parcel.writeFloat(ilosc);
+//        parcel.writeFloat(ilosc);
      //   parcel.writeBooleanArray(isSelected);
     }
 
@@ -152,6 +152,6 @@ public class Produkt implements Parcelable {
         nazwa = in.readString();
         cena_min = in.readFloat();
         cena_max = in.readFloat();
-        ilosc = in.readFloat();
+   //     ilosc = in.readFloat();
     }
 }

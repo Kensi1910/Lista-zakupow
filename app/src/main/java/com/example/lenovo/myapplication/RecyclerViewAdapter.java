@@ -54,7 +54,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     //    if (MainActivity.itemCounter[position] < 0) {
        //     MainActivity.itemCounter[position] = 0;
      //   }
-        holder.tv_count_produkt.setText("0");
+        int il = mData.get(position).getIlosc();
+        if (il == 1) {
+            holder.tv_count_produkt.setText(String.valueOf(mData.get(position).getIlosc()) + " produkt");
+        }
+        else if (il == 2 || il == 3 || il == 4) {
+            holder.tv_count_produkt.setText(String.valueOf(mData.get(position).getIlosc()) + " produkty");
+        }
+        else {
+            holder.tv_count_produkt.setText(String.valueOf(mData.get(position).getIlosc()) + " produktow");
+        }
+//        holder.tv_count_produkt.setText(baza.getCounterByList(mData.get(position).getId()));
         holder.settings_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

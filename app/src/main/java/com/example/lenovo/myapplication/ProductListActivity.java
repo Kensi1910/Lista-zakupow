@@ -29,8 +29,10 @@ public class ProductListActivity extends AppCompatActivity {
     private TextView tv_name_list;
     ArrayList<Produkt> arraylist;
     public static int counterItem;
+    public static  List<AddedProdukt> mAddedProdukt;
     public static ArrayList<Produkt> produktyList2;
-
+    private String id;
+    private int id2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +41,16 @@ public class ProductListActivity extends AppCompatActivity {
         init();
         setTitle(" Produkty ");
         String nazwa2 = getIntent().getStringExtra("ListName");
-        String id = getIntent().getStringExtra("ListId");
-        tv_name_list.setText(nazwa2);
+        id = getIntent().getStringExtra("ListId");
+        id2 = getIntent().getIntExtra("ListId2", 0);
+        tv_name_list.setText(nazwa2 + " " + id  + " " + id2);
 
         baza = new Baza(this);
 
         produktyList2 = new ArrayList<>();
         lstAddedProduct = new ArrayList<>();
         arraylist = new ArrayList<>();
+        mAddedProdukt = new ArrayList<>();
         lstAddedProduct = baza.getAddedProductyID(id);
         counterItem = lstAddedProduct.size();
 
@@ -56,6 +60,7 @@ public class ProductListActivity extends AppCompatActivity {
         mRecylerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
         addListenerToButtonAddProduct();
+        setProductAsSelected();
 
     }
 
@@ -81,7 +86,23 @@ public class ProductListActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        setProductAsSelected();
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onBackPressed() {
+        int ilosc = lstAddedProduct.size();
+        if (ilosc > 0) {
+            baza.updateIloscProduktow(ilosc, Integer.parseInt(id));
+            Bundle bundle = new Bundle();
+            bundle.putInt("ilosc_produktow", ilosc);
+            bundle.putInt("id_listyy", id2);
+            Intent intent = new Intent();
+            intent.putExtras(bundle);
+            setResult(RESULT_OK, intent);
+        }
+        super.onBackPressed();
     }
 
     private void addListenerToButtonAddProduct() {
@@ -96,6 +117,17 @@ public class ProductListActivity extends AppCompatActivity {
 
     }
 
+    private void setProductAsSelected() {
+        for (int i = 0; i < lstAddedProduct.size(); i++) {
+            int f = baza.getSelectedByProduktAndList(Integer.parseInt(MainActivity.getListId()), lstAddedProduct.get(i).getId());
+            if (f == 1) {
+                lstAddedProduct.get(i).setSelected(true);
+            }
+            else {
+                lstAddedProduct.get(i).setSelected(false);
+            }
+        }
+    }
     private void init() {
         fabAddProdukt = (FloatingActionButton) findViewById(R.id.fab_add_produkt);
         tv_name_list = (TextView) findViewById(R.id.tv_name_list);

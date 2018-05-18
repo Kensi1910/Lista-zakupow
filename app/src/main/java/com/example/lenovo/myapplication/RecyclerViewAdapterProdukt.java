@@ -87,10 +87,8 @@ public class RecyclerViewAdapterProdukt extends RecyclerView.Adapter<RecyclerVie
                 final String id_listy = MainActivity.getListId();
                 int id_listyy = Integer.parseInt(id_listy);
 
-           //     if (licznik)
                 int id_produktu = mData.get(pos).getId();
 
-             //   MainActivity.itemCounter[id_listyy]++;
 
 
                 //    Toast.makeText(
@@ -99,25 +97,36 @@ public class RecyclerViewAdapterProdukt extends RecyclerView.Adapter<RecyclerVie
              //   if (ProductListActivity.counterItem < 2) {
             //    AddProduktTabLayout.arraylist2.get(po)
                 List<Produkt> arrayList = baza.getAddedProductyID(id_listy);
-                if (cb.isChecked()) {
+                if (arrayList.size() > 0) {
+                    if (cb.isChecked()) {
 
-                    for (int i = 0; i < arrayList.size(); i++) {
-                        if (arrayList.get(i).getId() != id_produktu ) {
-                            baza.updateProdukt(mData.get(pos), mData.get(pos).getName());
-                            mData.get(pos).setIlosc(1.0f);
-                            mData.get(pos).setJednostka(" ");
-                            baza.createListaProdoktow(id_listyy,id_produktu);
-                            AddProduktTabLayout.produktyList2.add(baza.getProduktByID(id_produktu));
-                            AddProduktTabLayout.arraylist2.add(baza.getProduktByID(id_produktu));
-                            break;
-                        }
-                        else {
-                            break;
-                        }
+                        for (int i = 0; i < arrayList.size(); i++) {
+                            if (arrayList.get(i).getId() != id_produktu ) {
+                                baza.updateProdukt(mData.get(pos), mData.get(pos).getName());
+                             //   mData.get(pos).setIlosc(1.0f);
+                       //         mAddedProdukt.get(pos).setIlosc();
+                          //      mData.get(pos).setJednostka(" ");
+                             //   baza.createListaProdoktow(id_listyy,id_produktu);
+                                baza.createListaProdoktow2(id_listyy,id_produktu, 1.1f,"szt", 0);
+                                AddProduktTabLayout.produktyList2.add(baza.getProduktByID(id_produktu));
+                                AddProduktTabLayout.arraylist2.add(baza.getProduktByID(id_produktu));
+                                break;
+                            }
+                            else {
+                                break;
+                            }
 
+                        }
                     }
-
                 }
+                else  {
+                    if (cb.isChecked()) {
+                        baza.createListaProdoktow2(id_listyy, id_produktu,1.1f,"szt", 0);
+                        AddProduktTabLayout.produktyList2.add(baza.getProduktByID(id_produktu));
+                        AddProduktTabLayout.arraylist2.add(baza.getProduktByID(id_produktu));
+                    }
+                }
+
 
                 ProductListActivity.counterItem = 0;
             }
@@ -322,9 +331,9 @@ public class RecyclerViewAdapterProdukt extends RecyclerView.Adapter<RecyclerVie
                             String cena = cenaEditText.getText().toString();
 
                       //      updateProduktName(name,oldName,position);
-                            updateIlosc(ilosc,oldName, position);
-                            updateCena(cena, oldName, position);
-                            updateJednostka(jednostka, oldName, position);
+                         //   updateIlosc(ilosc,oldName, position);
+                         //   updateCena(cena, oldName, position);
+                         //   updateJednostka(jednostka, oldName, position);
                         }
                     })
                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

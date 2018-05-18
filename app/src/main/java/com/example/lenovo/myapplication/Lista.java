@@ -9,10 +9,19 @@ public class Lista {
     private String name;
     private String data;
     private String data2;
+    private int ilosc;
 
     public Lista() {
 
     }
+
+    public Lista(String name, String data, String data2, int ilosc) {
+        this.name = name;
+        this.data = data;
+        this.data2 = data2;
+        this.ilosc = ilosc;
+    }
+
     public Lista(int id, String name, String data, String data2) {
         this.id = id;
         this.name = name;
@@ -23,6 +32,14 @@ public class Lista {
         this.name = name;
         this.data = data;
         this.data2 = data2;
+    }
+
+    public int getIlosc() {
+        return ilosc;
+    }
+
+    public void setIlosc(int ilosc) {
+        this.ilosc = ilosc;
     }
 
     public String getName() {

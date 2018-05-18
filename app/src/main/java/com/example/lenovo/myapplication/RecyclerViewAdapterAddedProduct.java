@@ -18,6 +18,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import static com.example.lenovo.myapplication.MainActivity.baza;
+import static com.example.lenovo.myapplication.MainActivity.getListId;
 
 /**
  * Created by kensi on 20/04/2018.
@@ -27,6 +28,8 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
 
     private Context mContext;
     private List<Produkt> mData;
+    final String id_listy = MainActivity.getListId();
+    int id_listyy = Integer.parseInt(id_listy);
  //   final String id_listy = MainActivity.getListId();
 
 
@@ -44,6 +47,9 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
         return new MyRecyclerView(view);
     }
 
+ //   public void setSelected(int id) {
+
+  //  }
     @Override
     public void onBindViewHolder(final MyRecyclerView holder, final int position) {
         holder.tvNazwa.setText(mData.get(position).getName());
@@ -53,7 +59,9 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
         if (mData.get(position).getJednostka() == null) {
             mData.get(position).setJednostka(" ");
         }
-        holder.tvIlosc.setText(mData.get(position).getIlosc().toString() + " " + mData.get(position).getJednostka());
+     //   holder.tvIlosc.setText(mData.get(position).getIlosc().toString() + " " + mData.get(position).getJednostka());
+
+        holder.tvIlosc.setText(baza.getIloscByProduktAndList(id_listyy,mData.get(position).getId()) + " " + baza.getJednostkaByProduktAndList(id_listyy, mData.get(position).getId()));
         holder.chkSelected.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
@@ -62,8 +70,21 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
                 Produkt produkt = (Produkt) cb.getTag();
 
                 produkt.setSelected((cb.isChecked()));
-                setStrikeThroughText(holder, position);
+
+                if (cb.isChecked()) {
+                    baza.updateSelected(1, mData.get(position).getId(), id_listyy);
+                }
                 Produkt p = mData.get(position);
+                mData.remove(position);
+                mData.add(mData.size(), p);
+                notifyDataSetChanged();
+            //    setStrikeThroughText(holder, position);
+           //     notifyItemMoved(position, mData.size()-1);
+              //  notify
+              //  notifyItemInserted(mData.size());
+          //      mData.add(mData.size()-1, p);
+             //   notifyDataSetChanged();
+            //    notifyItemMoved(position,mData.size());
         //        mData.remove(mData.get(position));
 
            //     MainActivity.itemCounter[Integer.parseInt(id_listy)]--;
@@ -133,18 +154,20 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
     private void updateIlosc(String ilosc, String n, int position) {
         Produkt p = mData.get(position);
         Float f= Float.parseFloat(ilosc);
-        p.setIlosc(f);
-        baza.updateProdukt(p, n);
-        mData.set(position,p);
+    //    p.setIlosc(f);
+     //   baza.updateProdukt(p, n);
+    //    mData.set(position,p);
+        baza.updateIlosc(f, mData.get(position).getId(), id_listyy);
         notifyItemChanged(position);
     }
 
     private void updateJednostka(String jednostka, String n, int position) {
         Produkt p = mData.get(position);
         String s = jednostka;
-        p.setJednostka(s);
-        baza.updateProdukt(p, n);
-        mData.set(position,p);
+     //   p.setJednostka(s);
+     //   baza.updateProdukt(p, n);
+     //   mData.set(position,p);
+        baza.updateJednostka(s, mData.get(position).getId(), id_listyy);
         notifyItemChanged(position);
     }
 
@@ -190,8 +213,10 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
 
     private void showEditDialog(final int position) {
         final String oldName = mData.get(position).getName();
-        final String oldIlosc = mData.get(position).getIlosc().toString();
-        final String oldJednostka = mData.get(position).getJednostka();
+     //   final String oldIlosc = mData.get(position).getIlosc().toString();
+        final String oldIlosc = baza.getIloscByProduktAndList(id_listyy,mData.get(position).getId()).toString();
+   //     final String oldJednostka = mData.get(position).getJednostka();
+        final String oldJednostka = baza.getJednostkaByProduktAndList(id_listyy, mData.get(position).getId());
         final String oldCena = mData.get(position).getCena_max().toString();
 
         //    Toast.makeText(context, "Edit", Toast.LENGTH_SHORT).show();

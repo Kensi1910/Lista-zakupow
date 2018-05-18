@@ -45,15 +45,19 @@ public class MainActivity extends AppCompatActivity
 
     public static Baza baza;
     private static final int REQUEST_CODE_GETMESSAGE = 1423;
+    private static final int REQUEST_CODEE = 142;
     public List<Lista> lstLista;
     String newName;
     String newData;
     String newData2;
+    int ilosc;
+    String ilosc2;
     LinearLayout item_list;
     private RecyclerView myrecyclerview;
     private RecyclerViewAdapter mAdapter;
     private static String listName;
     private static String lstId;
+    private static int lstId2;
     public static int[] itemCounter;
 
 
@@ -187,14 +191,25 @@ public class MainActivity extends AppCompatActivity
         switch (requestCode) {
             case REQUEST_CODE_GETMESSAGE:
                 if (resultCode == Activity.RESULT_OK) {
-                    newName = data.getStringExtra("key_lista_name");
-                    newData = data.getStringExtra("key_lista_data_u");
-                    newData2 = data.getStringExtra("key_lista_data_p");
-
-                    addNewList(new Lista(newName, newData, newData2));
-
+                    Bundle bundle = data.getExtras();
+                    newName = bundle.getString("key_lista_name");
+                    newData = bundle.getString("key_lista_data_u");
+                    newData2 = bundle.getString("key_lista_data_p");
+                    ilosc = bundle.getInt("key_ilosc_produktow");
+                    addNewList(new Lista(newName, newData, newData2,ilosc));
                 }
+                break;
+            case REQUEST_CODEE:
+                if (resultCode == RESULT_OK) {
+                    Bundle bundle = data.getExtras();
+                    int ilosc = bundle.getInt("ilosc_produktow");
+                    int id_listyy = bundle.getInt("id_listyy");
+                    lstLista.get(id_listyy).setIlosc(ilosc);
+                    mAdapter.notifyDataSetChanged();
+                }
+                break;
         }
+
     }
     // on activiry result nedzie zwracalo id proudktow i listy i zaposywalo do addedlist, a pozniej z tego nea tpwrzone prodiktu,
     //  a potem itemy produktow
@@ -215,10 +230,11 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
         listName = lista.getName();
         lstId = baza.getIDListy(listName);
-//        itemCounter[Integer.parseInt(lstId)] = 0;
+        lstId2 = position;
         intent.putExtra("ListId", lstId);
         intent.putExtra("ListName", listName);
-        startActivity(intent);
+        intent.putExtra("ListId2", lstId2);
+        startActivityForResult(intent,REQUEST_CODEE);
     }
 
     public static String getListName() {

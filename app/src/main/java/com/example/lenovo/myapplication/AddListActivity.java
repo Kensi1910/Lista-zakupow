@@ -66,7 +66,7 @@ public class AddListActivity extends AppCompatActivity {
                         String name = shop_list_name.getText().toString().trim();
                         String data_u = dateFormat.format(currentDate);
                         String data_p = dateFormat.format(currentDate);
-                        lista = new Lista(name,data_u,data_p);
+                        lista = new Lista(name,data_u,data_p,0);
                         baza.createLista(lista);
 
                         Toast.makeText(getApplicationContext(), "Dodano pomyślnie", Toast.LENGTH_LONG).show();
@@ -80,11 +80,15 @@ public class AddListActivity extends AppCompatActivity {
                     String listNameString = lista.getName();
                     String listDataUString = lista.getData();
                     String listDataPString = lista.getData2();
+                    int listIlosc = lista.getIlosc();
 
+                    Bundle bundle = new Bundle();
+                    bundle.putString("key_lista_name",listNameString);
+                    bundle.putString("key_lista_data_u",listDataUString);
+                    bundle.putString("key_lista_data_p",listDataPString);
+                    bundle.putInt("key_ilosc_produktow",listIlosc);
                     Intent intent = new Intent();
-                    intent.putExtra("key_lista_name",listNameString);
-                    intent.putExtra("key_lista_data_u",listDataUString);
-                    intent.putExtra("key_lista_data_p",listDataPString);
+                    intent.putExtras(bundle);
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                 }
