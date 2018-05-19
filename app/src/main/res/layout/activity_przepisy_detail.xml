@@ -125,8 +125,13 @@
             </android.support.v7.widget.CardView>
 
 
-
-
+            <Button
+                android:id="@+id/button_change_przepisy_produkt_to_list"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="Zamien produkty na liste" />
         </LinearLayout>
 
 

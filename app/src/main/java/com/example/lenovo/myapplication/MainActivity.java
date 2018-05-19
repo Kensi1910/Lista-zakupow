@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity
     public static Baza baza;
     private static final int REQUEST_CODE_GETMESSAGE = 1423;
     private static final int REQUEST_CODEE = 142;
-    public List<Lista> lstLista;
+    public static List<Lista> lstLista;
+  //  public List<Lista> lstLista;
     String newName;
     String newData;
     String newData2;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity
         baza = new Baza(this);
         lstLista = new ArrayList<>();
         lstLista = MainActivity.baza.getAllLista();
-
+     //   ProductListActivity.lstAddedProduct = new ArrayList<>();
         //Przycisk dodajacy nowa liste
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

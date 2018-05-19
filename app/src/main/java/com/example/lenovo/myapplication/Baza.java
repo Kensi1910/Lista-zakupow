@@ -314,13 +314,13 @@ public class Baza extends SQLiteOpenHelper {
 
 
         initStartPrzepisy(drawableP1,"Naleśniki z kurczakiem w sosie bolognese", opis[0], db);
-        initStartPrzepisy(drawableP2,"Naleśniki z kurczakiem w sosie bolognese", opis[1], db);
-        initStartPrzepisy(drawableP3,"Naleśniki z kurczakiem w sosie bolognese", opis[2], db);
-        initStartPrzepisy(drawableP4,"Naleśniki z kurczakiem w sosie bolognese", opis[3], db);
-        initStartPrzepisy(drawableP5,"Naleśniki z kurczakiem w sosie bolognese", opis[4], db);
-        initStartPrzepisy(drawableP6,"Naleśniki z kurczakiem w sosie bolognese", opis[5], db);
-        initStartPrzepisy(drawableP7,"Naleśniki z kurczakiem w sosie bolognese", opis[6], db);
-        initStartPrzepisy(drawableP8,"Naleśniki z kurczakiem w sosie bolognese", opis[7], db);
+        initStartPrzepisy(drawableP2,"Kurczak po chińsku", opis[1], db);
+        initStartPrzepisy(drawableP3,"Zupa meksykańska", opis[2], db);
+        initStartPrzepisy(drawableP4,"Jesienna zupa", opis[3], db);
+        initStartPrzepisy(drawableP5,"Krem serowy", opis[4], db);
+        initStartPrzepisy(drawableP6,"Lasagne z mięsa mielonego", opis[5], db);
+        initStartPrzepisy(drawableP7,"Pizza góralska", opis[6], db);
+        initStartPrzepisy(drawableP8,"Tagliatelle z sosem czosnkowym i grillowanym kurczakiem", opis[7], db);
     }
 
     @Override
@@ -1307,11 +1307,13 @@ public class Baza extends SQLiteOpenHelper {
         Cursor data = db.rawQuery(query, null);
         return data;
     }
-    public String getIDProdukt(String name) throws SQLException {
+
+
+    public String getIDProdukt2(String name) throws SQLException {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String selectQuery = "SELECT * FROM " + TABLE_PRODUKTY +
-                " WHERE " + KEY_KATEGORIA + " = '" + name + "'";
+                " WHERE " + KEY_PRODUKT + " = '" + name + "'";
         //   Log.e(LOG, selectQuery);
 
         Cursor c = db.rawQuery(selectQuery, null);
@@ -1327,6 +1329,23 @@ public class Baza extends SQLiteOpenHelper {
         return id_string;
     }
 
+    public boolean isProdukt(String name) throws SQLException {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Boolean b = true;
+        String selectQuery = "SELECT * FROM " + TABLE_PRODUKTY +
+                " WHERE " + KEY_PRODUKT + " = '" + name + "'";
+        //   Log.e(LOG, selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c.getCount() == 0) {
+            b = false;
+        }
+
+        c.close();
+
+        return b;
+    }
     public String getIDListy(String name) throws SQLException {
         SQLiteDatabase db = this.getReadableDatabase();
 

@@ -34,6 +34,7 @@ public class przepisy_activity extends AppCompatActivity {
 
                 Intent intentf = new Intent(przepisy_activity.this, PrzepisyDetailActivity.class);
                 intentf.putExtra("id", position);
+                intentf.putExtra("name", listPrzepis.get(position).getName());
                 startActivity(intentf);
             }
         });

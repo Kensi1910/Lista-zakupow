@@ -19,7 +19,8 @@ import java.util.List;
 public class ProductListActivity extends AppCompatActivity {
     private FloatingActionButton fabAddProdukt;
     public static Baza baza;
-    public  List<Produkt> lstAddedProduct;
+    public static   List<Produkt> lstAddedProduct;
+  //  public  List<Produkt> lstAddedProduct;
     private RecyclerView mRecylerView ;
     private  RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;

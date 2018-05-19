@@ -28,7 +28,8 @@ public class AddProductActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
    // public static ArrayList<Produkt> produktyList2;
-    private List<Produkt> produktyList;
+//    private List<Produkt> produktyList;
+    public  static List<Produkt> produktyList;
     private Button button_add_new_produkt;
     private Button button_wyswietl_baza;
     private TextView tv_wyswietl_baza;

@@ -60,8 +60,12 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
             mData.get(position).setJednostka(" ");
         }
      //   holder.tvIlosc.setText(mData.get(position).getIlosc().toString() + " " + mData.get(position).getJednostka());
-
-        holder.tvIlosc.setText(baza.getIloscByProduktAndList(id_listyy,mData.get(position).getId()) + " " + baza.getJednostkaByProduktAndList(id_listyy, mData.get(position).getId()));
+        if (baza.getIloscByProduktAndList(id_listyy, mData.get(position).getId()) == 0.0f) {
+            holder.tvIlosc.setText(" ");
+        }
+        else {
+            holder.tvIlosc.setText(baza.getIloscByProduktAndList(id_listyy,mData.get(position).getId()) + " " + baza.getJednostkaByProduktAndList(id_listyy, mData.get(position).getId()));
+        }
         holder.chkSelected.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
