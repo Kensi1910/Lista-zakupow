@@ -1,13 +1,17 @@
 package com.example.lenovo.myapplication;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +33,8 @@ public class PrzepisyDetailActivity extends AppCompatActivity {
     private Button buttonChangeProduktToList;
     Bitmap bitmap;
     PrzepisyAdapter gridAdapter;
+    ArrayList<Produkt> skladnikiList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,12 +89,36 @@ public class PrzepisyDetailActivity extends AppCompatActivity {
 
     }
 
-    ArrayList<Produkt> skladnikiList = new ArrayList<>();
 
-    private void setListenerToButtonChangeProduktToList() {
+    private void  setListenerToButtonChangeProduktToList() {
         buttonChangeProduktToList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showActionsDialog();
+            }
+        });
+    }
+    private void showActionsDialog() {
+        CharSequence colors[] = new CharSequence[]{"istniejacej listy", "nowej"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Dodaj do:");
+        builder.setItems(colors, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    ToExistList();
+                }
+                else{
+                    ToNewList();
+                }
+
+            }
+        });
+        builder.show();
+    }
+
+    private void ToNewList() {
                 int i = 0,j=0;
 
                 Scanner scanner2 = new Scanner(gridAdapter.skladniki[position]);
@@ -110,39 +140,100 @@ public class PrzepisyDetailActivity extends AppCompatActivity {
                 String id_listy = baza.getIDListy(lista.getName());
                 int id_listyy = Integer.parseInt(id_listy);
 
+                i=0;
                 Scanner scanner = new Scanner(gridAdapter.skladniki[position]);
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     if (i%2 == 0) {
-                          String line2 = line;
-                          Produkt produkt = new Produkt(line2, 0.0f, 0.0f, 0, 0.0f, " ");
-                          if (!baza.isProdukt(line2)) {
-                              baza.createProdukt(produkt);
-                          }
-                       //   baza.createProdukt(produkt);
-
-                          skladnikiList.add(produkt);
-                          Produkt p =  baza.getProduktByID(Integer.parseInt(baza.getIDProdukt2(skladnikiList.get(j).getName())));
-                          baza.createListaProdoktow2(id_listyy, p.getId(),0, " ",0);
-                          j++;
-//                          AddProductActivity.produktyList.add(0, baza.getProdukt());
-
-                      //    Toast.makeText(PrzepisyDetailActivity.this, line, Toast.LENGTH_SHORT).show();
+                        String line2 = line;
+                        Produkt produkt = new Produkt(line2, 0.0f, 0.0f, 0, 0.0f, " ");
+                        if (!baza.isProdukt(line2)) {
+                            baza.createProdukt(produkt);
+                        }
+                        skladnikiList.add(produkt);
+                        Produkt p =  baza.getProduktByID(Integer.parseInt(baza.getIDProdukt2(skladnikiList.get(j).getName())));
+                        baza.createListaProdoktow2(id_listyy, p.getId(),0, " ",0);
+                        j++;
                     }
                     i++;
 
                 }
                 scanner.close();
-//                ProductListActivity.lstAddedProduct.addAll(skladnikiList);
+                Toast.makeText(PrzepisyDetailActivity.this, "Dodano pomyślnie", Toast.LENGTH_SHORT).show();
+    }
 
+    int id_listyy;
+    private void ToExistList() {
 
+        List<Lista> lstLista = new ArrayList<>();
+        List<String> lstString = new ArrayList<>();
+        lstLista = baza.getAllLista();
+        for (int i = 0; i < lstLista.size(); i++) {
+            lstString.add(lstLista.get(i).getName());
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.dialog_spinner_choose_list, null);
+        builder.setTitle("Dodaj do:");
+        final Spinner spinner = (Spinner) view.findViewById(R.id.spinner_choose_list);
+        ArrayAdapter<String> adapter  = new ArrayAdapter<String>(PrzepisyDetailActivity.this,
+                android.R.layout.simple_spinner_item, lstString);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
-            //    Toast.makeText(PrzepisyDetailActivity.this, id_listy, Toast.LENGTH_LONG).show();
-              //  Toast.makeText(PrzepisyDetailActivity.this, String.valueOf(skladnikiList.get(0).getId()), Toast.LENGTH_LONG).show();
-           //     Toast.makeText(PrzepisyDetailActivity.this, String.valueOf(p.getId()), Toast.LENGTH_LONG).show();
-           //     Toast.makeText(PrzepisyDetailActivity.this, skladnikiList.get(0).getName(), Toast.LENGTH_LONG).show();
+        builder.setPositiveButton("Dodaj", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String id_listy = baza.getIDListy(spinner.getSelectedItem().toString());
+                id_listyy = Integer.parseInt(id_listy);
 
+                int k = 0,j=0;
+
+                Scanner scanner2 = new Scanner(gridAdapter.skladniki[position]);
+                while (scanner2.hasNextLine()) {
+                    String line = scanner2.nextLine();
+                    k++;
+                }
+                scanner2.close();
+
+                int ilosc = baza.getCounterByList(id_listyy);
+                baza.updateIloscProduktow(ilosc + k/2, id_listyy);
+            //    String tekst = Integer.toString(ilosc + k/2);
+            //    Toast.makeText(PrzepisyDetailActivity.this, tekst, Toast.LENGTH_SHORT).show();
+
+                k=0;
+                Scanner scanner = new Scanner(gridAdapter.skladniki[position]);
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    if (k%2 == 0) {
+                        String line2 = line;
+                        Produkt produkt = new Produkt(line2, 0.0f, 0.0f, 0, 0.0f, " ");
+                        if (!baza.isProdukt(line2)) {
+                            baza.createProdukt(produkt);
+                        }
+                        skladnikiList.add(produkt);
+                        Produkt p =  baza.getProduktByID(Integer.parseInt(baza.getIDProdukt2(skladnikiList.get(j).getName())));
+                        baza.createListaProdoktow2(id_listyy, p.getId(),0, " ",0);
+                        j++;
+                    }
+                    k++;
+
+                }
+                scanner.close();
+                Toast.makeText(PrzepisyDetailActivity.this, "Dodano pomyślnie", Toast.LENGTH_SHORT).show();
             }
         });
+
+        builder.setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
+
 }

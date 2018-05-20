@@ -1004,6 +1004,84 @@ public class Baza extends SQLiteOpenHelper {
         return lstProdukt;
     }
 
+
+    public String getIDProdukt2(String name) throws SQLException {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_PRODUKTY +
+                " WHERE " + KEY_PRODUKT + " = '" + name + "'";
+        //   Log.e(LOG, selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToLast();
+
+        int id;
+        id = c.getInt(c.getColumnIndex(KEY_ID));
+
+        c.close();
+        String id_string = String.valueOf(id);
+        return id_string;
+    }
+
+    public boolean isProdukt(String name) throws SQLException {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Boolean b = true;
+        String selectQuery = "SELECT * FROM " + TABLE_PRODUKTY +
+                " WHERE " + KEY_PRODUKT + " = '" + name + "'";
+        //   Log.e(LOG, selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c.getCount() == 0) {
+            b = false;
+        }
+
+        c.close();
+
+        return b;
+    }
+    public String getIDListy(String name) throws SQLException {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_LISTA +
+                " WHERE " + KEY_LISTA + " = '" + name + "'";
+        //   Log.e(LOG, selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToLast();
+
+        int id;
+        id = c.getInt(c.getColumnIndex(KEY_ID));
+
+        c.close();
+        String id_string = String.valueOf(id);
+        return id_string;
+    }
+
+    public String getIDCategory(String name) throws SQLException {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_KATEGORIA +
+                " WHERE " + KEY_KATEGORIA + " = '" + name + "'";
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToLast();
+
+        int id;
+        id = c.getInt(c.getColumnIndex(KEY_ID));
+
+        c.close();
+        String id_string = String.valueOf(id);
+        return id_string;
+    }
+
+
     /**
  * getting all katogoria
  * */
@@ -1309,81 +1387,7 @@ public class Baza extends SQLiteOpenHelper {
     }
 
 
-    public String getIDProdukt2(String name) throws SQLException {
-        SQLiteDatabase db = this.getReadableDatabase();
 
-        String selectQuery = "SELECT * FROM " + TABLE_PRODUKTY +
-                " WHERE " + KEY_PRODUKT + " = '" + name + "'";
-        //   Log.e(LOG, selectQuery);
-
-        Cursor c = db.rawQuery(selectQuery, null);
-
-        if (c != null)
-            c.moveToLast();
-
-        int id;
-        id = c.getInt(c.getColumnIndex(KEY_ID));
-
-        c.close();
-        String id_string = String.valueOf(id);
-        return id_string;
-    }
-
-    public boolean isProdukt(String name) throws SQLException {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Boolean b = true;
-        String selectQuery = "SELECT * FROM " + TABLE_PRODUKTY +
-                " WHERE " + KEY_PRODUKT + " = '" + name + "'";
-        //   Log.e(LOG, selectQuery);
-
-        Cursor c = db.rawQuery(selectQuery, null);
-
-        if (c.getCount() == 0) {
-            b = false;
-        }
-
-        c.close();
-
-        return b;
-    }
-    public String getIDListy(String name) throws SQLException {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String selectQuery = "SELECT * FROM " + TABLE_LISTA +
-        " WHERE " + KEY_LISTA + " = '" + name + "'";
-        //   Log.e(LOG, selectQuery);
-
-        Cursor c = db.rawQuery(selectQuery, null);
-
-        if (c != null)
-            c.moveToLast();
-
-        int id;
-         id = c.getInt(c.getColumnIndex(KEY_ID));
-
-        c.close();
-        String id_string = String.valueOf(id);
-        return id_string;
-    }
-
-    public String getIDCategory(String name) throws SQLException {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String selectQuery = "SELECT * FROM " + TABLE_KATEGORIA +
-                " WHERE " + KEY_KATEGORIA + " = '" + name + "'";
-
-        Cursor c = db.rawQuery(selectQuery, null);
-
-        if (c != null)
-            c.moveToLast();
-
-        int id;
-        id = c.getInt(c.getColumnIndex(KEY_ID));
-
-        c.close();
-        String id_string = String.valueOf(id);
-        return id_string;
-    }
 
     public StringBuilder WypiszKategorie() {
 
