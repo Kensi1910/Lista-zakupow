@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ProductListActivity extends AppCompatActivity {
@@ -32,6 +33,8 @@ public class ProductListActivity extends AppCompatActivity {
     public static int counterItem;
     public static  List<AddedProdukt> mAddedProdukt;
     public static ArrayList<Produkt> produktyList2;
+    private List<Produkt> listAddedProduktChecked;
+    private List<Produkt> listAddedProduktNotChecked;
     private String id;
     private int id2;
 
@@ -44,7 +47,7 @@ public class ProductListActivity extends AppCompatActivity {
         String nazwa2 = getIntent().getStringExtra("ListName");
         id = getIntent().getStringExtra("ListId");
         id2 = getIntent().getIntExtra("ListId2", 0);
-        tv_name_list.setText(nazwa2 + " " + id  + " " + id2);
+        tv_name_list.setText(nazwa2);
 
         baza = new Baza(this);
 
@@ -53,6 +56,18 @@ public class ProductListActivity extends AppCompatActivity {
         arraylist = new ArrayList<>();
         mAddedProdukt = new ArrayList<>();
         lstAddedProduct = baza.getAddedProductyID(id);
+        listAddedProduktChecked = new ArrayList<>();
+        listAddedProduktNotChecked = new ArrayList<>();
+       // for (int i = 0; i < lstAddedProduct.size(); i++) {
+        //    if (lstAddedProduct.get(i).isSelected()) {
+        //        listAddedProduktChecked.add(lstAddedProduct.get(i));
+         //   }
+         //   else {
+         //       listAddedProduktNotChecked.add(lstAddedProduct.get(i));
+         //   }
+       // }
+      //  lstAddedProduct.addAll(listAddedProduktNotChecked);
+       // lstAddedProduct.addAll(listAddedProduktChecked);
         counterItem = lstAddedProduct.size();
 
         mRecylerView = (RecyclerView) findViewById(R.id.my_recycler_view_add_produkt);
@@ -76,7 +91,9 @@ public class ProductListActivity extends AppCompatActivity {
                     Bundle bundle = data.getExtras();
                     arraylist = bundle.getParcelableArrayList("mylist");
                     if (!(arraylist.isEmpty())) {
+                        Collections.reverse(lstAddedProduct);
                         lstAddedProduct.addAll(arraylist);
+                        Collections.reverse(lstAddedProduct);
                         mAdapter.notifyDataSetChanged();
                     }
 

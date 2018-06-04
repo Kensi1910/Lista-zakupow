@@ -81,28 +81,28 @@ public class PrzepisyAdapter extends BaseAdapter {
             {
                     //skladniki 1 przepis
                     "makaron tagliatelle 300 g \n\n" +
-                            "Fix Naturalnie smaczne Tagliatelle z kurczakiem Knorr 1 opak.\n\n" +
+                            "Fix Knorr 1 opak.\n\n" +
                             "pierś z kurczaka 1 szt\n\n" +
-                            "Przyprawa do złotego kurczaka Knorr 1 łyżka\n\n" +
+                            "przyprawa do  kurczaka 1 łyżka\n\n" +
                             "czosnek 1 szt. \n\n" +
                             "cebula 1 szt.\n\n" +
                             "natka pietruszki 1 pęczek\n\n"+
                             "wino białe wytrawne 100 ml\n\n"+
-                            "Śmietana 30% 200 ml\n\n"+
-                            "parmezan lub inny twardy ser 20 g \n\n"+
-                            "pieprz czarny świeżo mielony 1 szczypta \n\n"+
+                            "śmietana 200 ml\n\n"+
+                            "parmezan 20 g \n\n"+
+                            "pieprz czarny 1 szczypta \n\n"+
                             "oliwa z oliwek 4 łyżki \n\n",
                     //skladniki 2 przepis
                     "gotowe naleśniki 5 szt.\n\n" +
-                            "Fix Naturalnie smaczne Spaghetti Bolognese Knorr 1 opak.\n\n" +
+                            "Fix Spaghetti Bolognese 1 opak.\n\n" +
                             "filet z piersi kurczaka 200 g\n\n" +
                             "marchewka 1 szt.\n\n" +
                             "ser żółty ementaler 100 g\n\n" +
-                            "kwaśna śmietana 18% 100 ml",
+                            "kwaśna śmietana 100 ml",
                     //skladniki 3 przepis
                     "pierś z kurczaka 400 g\n\n "+
-                            "Fix Do potraw chińskich Knorr 1 opak. \n\n"+
-                            "chińska mieszanka warzyw na patelnię 1 opak. \n\n"+
+                            "Fix Do potraw chińskich 1 opak. \n\n"+
+                            "chińska mieszanka warzyw 1 opak. \n\n"+
                             "olej 3 łyżki \n\n"+
                             "woda 300 ml",
                     //skladniki 4 przepis
@@ -110,26 +110,26 @@ public class PrzepisyAdapter extends BaseAdapter {
                             "ogórki konserwowe 5 szt.\n\n"+
                             "papryka konserwowa czerwona 4 szt.\n\n"+
                             "kukurydza z puszki 1 opak.\n\n"+
-                            "Fix Chili con carne Knorr 1 opak. \n\n"+
+                            "Fix Chili con carne 1 opak. \n\n"+
                             "cebula czerwona 1 szt.\n\n"+
                             "przecier pomidorowy 2 łyżki\n\n"+
                             "kumin mielony 1 łyżeczka\n\n"+
                             "ząbki czosnku 2 szt.\n\n"+
-                            "kolendra1 pęczek \n\n"+
-                            "woda 1,5l",
+                            "kolendra 1 pęczek \n\n"+
+                            "woda 1.5 l",
                     //skladniki 5 przepis
                     "dynia np. Hokkaido 1 kg\n\n"+
                             "Rosół z kury Knorr 1 szt.\n\n"+
                             "mleko kokosowe 200 ml \n\n"+
                             "cebula 1 szt.\n\n"+
                             "ząbek czosnku 1 szt.\n\n"+
-                            "kawałek świeżego imbiru, ok. 5 cm \n\n"+
+                            "kawałek świeżego imbiru 5 cm \n\n"+
                             "brązowy cukier 1 łyżka\n\n"+
                             "pestki z dyni 50 g\n\n"+
                             "olej rzepakowy 1 łyżka\n\n",
                     //skladniki 6
-                    "Rosół z kury z pietruszką i lubczykiem Knorr 1 szt.\n\n"+
-                            "Zasmażka błyskawiczna jasna Knorr 1 opak.\n\n"+
+                    "Rosół z kury 1 szt.\n\n"+
+                            "Zasmażka błyskawiczna 1 opak.\n\n"+
                             "mrożony bób 100 g\n\n"+
                             "topiony serek śmietankowy 1 szt.\n\n"+
                             "gorąca woda 3 szklanki\n\n"+
@@ -155,14 +155,14 @@ public class PrzepisyAdapter extends BaseAdapter {
                             "fasola z puszki 1 opak.\n\n"+
                             "boczek 6 plastrów \n\n"+
                             "mąka do podsypania ciasta 50 g\n\n"+
-                            "Przyprawa w Mini kostkach Czosnek Knorr 1 szt.\n\n"+
+                            "Przyprawa kostkach Czosnek 1 szt.\n\n"+
                             "oliwa z oliwek 2 łyżki\n\n"+
                             "oscypek 1 szt.\n\n\n"+
                             "\t\t sos do pizzy\n\n"+
                             "koncentrat pomidorowy 100 g\n\n"+
                             "cukier 1 łyżeczka\n\n"+
                             "sól 1 łyżeczka\n\n"+
-                            "Oregano z Turcji Knorr 2 łyżeczki\n\n"+
+                            "Oregano  2 łyżeczki\n\n"+
                             "woda \n\n\n"+
                             " \t\t ciasto do pizzy \n\n"+
                             "mąka 1 kg\n\n"+

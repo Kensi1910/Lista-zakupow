@@ -61,7 +61,7 @@ public class AddProduktTabLayout extends AppCompatActivity {
 
         adapter.AddFragment(new LastProduktFragment(), " Kategorie");
         adapter.AddFragment(new CategoryFragment(), "Ostatnio dodane");
-        adapter.AddFragment(new FavFragment(), "Popularne");
+   //     adapter.AddFragment(new FavFragment(), "Popularne");
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);

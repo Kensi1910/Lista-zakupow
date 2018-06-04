@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.zip.Inflater;
 
@@ -54,6 +55,7 @@ public class CategoryFragment extends Fragment {
         produktyList = new ArrayList<>();
       //  id_kategori = getActivity().getIntent().getStringExtra("id_kategori");
         produktyList = MainActivity.baza.getAllProdukt();
+        Collections.reverse(produktyList);
         produktyList2 = new ArrayList<>();
         AddProduktTabLayout.arraylist2 = new ArrayList<>();
 

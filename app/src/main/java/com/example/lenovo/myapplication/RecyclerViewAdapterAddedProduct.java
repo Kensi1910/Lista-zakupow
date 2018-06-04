@@ -63,6 +63,9 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
         if (baza.getIloscByProduktAndList(id_listyy, mData.get(position).getId()) == 0.0f) {
             holder.tvIlosc.setText(" ");
         }
+        else if(baza.getIloscByProduktAndList(id_listyy, mData.get(position).getId()) % 1 == 0 ){
+            holder.tvIlosc.setText((int)Math.round(baza.getIloscByProduktAndList(id_listyy,mData.get(position).getId())) + " " + baza.getJednostkaByProduktAndList(id_listyy, mData.get(position).getId()));
+        }
         else {
             holder.tvIlosc.setText(baza.getIloscByProduktAndList(id_listyy,mData.get(position).getId()) + " " + baza.getJednostkaByProduktAndList(id_listyy, mData.get(position).getId()));
         }
@@ -78,12 +81,13 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
                 if (cb.isChecked()) {
                     baza.updateSelected(1, mData.get(position).getId(), id_listyy);
                 }
+            //    setStrikeThroughText(holder, position);
                 Produkt p = mData.get(position);
                 mData.remove(position);
                 mData.add(mData.size(), p);
                 notifyDataSetChanged();
-            //    setStrikeThroughText(holder, position);
-           //     notifyItemMoved(position, mData.size()-1);
+
+              //  notifyItemMoved(position, mData.size()-1);
               //  notify
               //  notifyItemInserted(mData.size());
           //      mData.add(mData.size()-1, p);

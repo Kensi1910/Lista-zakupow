@@ -107,6 +107,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                 //removeItem(position);
                                 deleteLista(position);
                                 break;
+
+                            case R.id.action_powiadomienia_list:
+                                Toast.makeText(context, "Powiadomienie listy:  " + mData.get(position).getName(), Toast.LENGTH_SHORT).show();
+
                         }
 
                         return false;

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
@@ -47,6 +48,7 @@ public class AddProductActivity extends AppCompatActivity {
 
         id_kategori = getIntent().getStringExtra("id_kategori");
         produktyList  = MainActivity.baza.getAllProdukt(id_kategori);
+        Collections.reverse(produktyList);
        // produktyList2 = new ArrayList<>();
         AddProduktTabLayout.produktyList2 = new ArrayList<>();
 
@@ -81,6 +83,7 @@ public class AddProductActivity extends AppCompatActivity {
         intent.putExtras(bundle);
        //  Toast.makeText(AddProductActivity.this, produktyList2.get(0).getName(), Toast.LENGTH_LONG).show();
         setResult(RESULT_OK, intent);
+        finish();
         super.onBackPressed();
 
     }

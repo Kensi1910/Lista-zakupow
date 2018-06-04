@@ -107,7 +107,7 @@ public class RecyclerViewAdapterProdukt extends RecyclerView.Adapter<RecyclerVie
                        //         mAddedProdukt.get(pos).setIlosc();
                           //      mData.get(pos).setJednostka(" ");
                              //   baza.createListaProdoktow(id_listyy,id_produktu);
-                                baza.createListaProdoktow2(id_listyy,id_produktu, 1.1f,"szt", 0);
+                                baza.createListaProdoktow2(id_listyy,id_produktu, 1.0f," ", 0);
                                 AddProduktTabLayout.produktyList2.add(baza.getProduktByID(id_produktu));
                                 AddProduktTabLayout.arraylist2.add(baza.getProduktByID(id_produktu));
                                 break;
@@ -121,7 +121,7 @@ public class RecyclerViewAdapterProdukt extends RecyclerView.Adapter<RecyclerVie
                 }
                 else  {
                     if (cb.isChecked()) {
-                        baza.createListaProdoktow2(id_listyy, id_produktu,1.1f,"szt", 0);
+                        baza.createListaProdoktow2(id_listyy, id_produktu,1.0f," ", 0);
                         AddProduktTabLayout.produktyList2.add(baza.getProduktByID(id_produktu));
                         AddProduktTabLayout.arraylist2.add(baza.getProduktByID(id_produktu));
                     }
