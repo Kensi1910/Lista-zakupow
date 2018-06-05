@@ -38,7 +38,9 @@
         <receiver
             android:name=".AlarmReceiver"
             android:process=":remote" />
-        <activity android:name=".SetReminderWindow"></activity>
+
+        <activity android:name=".SetReminderWindow" />
+        <activity android:name=".AutorzyActivity"></activity>
     </application>
 
 </manifest>

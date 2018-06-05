@@ -55,7 +55,8 @@ public class ProductListActivity extends AppCompatActivity {
         lstAddedProduct = new ArrayList<>();
         arraylist = new ArrayList<>();
         mAddedProdukt = new ArrayList<>();
-        lstAddedProduct = baza.getAddedProductyID(id);
+     //   lstAddedProduct = baza.getAddedProductyID(id);
+        lstAddedProduct = baza.getAddedSelectedAndNotSecectedProductyID(id);
         listAddedProduktChecked = new ArrayList<>();
         listAddedProduktNotChecked = new ArrayList<>();
        // for (int i = 0; i < lstAddedProduct.size(); i++) {

@@ -157,8 +157,6 @@ public class MainActivity extends AppCompatActivity
             startActivityForResult(intent, REQUEST_CODE_GETMESSAGE);
         } else if (id == R.id.lista_zakupow) {
 
-        } else if (id == R.id.edytuj_liste) {
-
         } else if (id == R.id.usun_listy) {
             removeAllLists();
             baza.deleteListaAll();
@@ -168,7 +166,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.o_autorach) {
-
+            Intent intent = new Intent(MainActivity.this, AutorzyActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

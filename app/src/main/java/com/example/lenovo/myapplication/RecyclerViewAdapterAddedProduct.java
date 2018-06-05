@@ -81,10 +81,12 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
                 if (cb.isChecked()) {
                     baza.updateSelected(1, mData.get(position).getId(), id_listyy);
                 }
-            //    setStrikeThroughText(holder, position);
+
                 Produkt p = mData.get(position);
                 mData.remove(position);
                 mData.add(mData.size(), p);
+            //    notifyItemMoved(position, mData.size()-1);
+               // setStrikeThroughText(holder, mData.size()-1);
                 notifyDataSetChanged();
 
               //  notifyItemMoved(position, mData.size()-1);
@@ -148,7 +150,7 @@ public class RecyclerViewAdapterAddedProduct extends RecyclerView.Adapter<Recycl
     @SuppressLint("ResourceAsColor")
     private void setStrikeThroughText(final MyRecyclerView holder, final int position) {
         strikeThroughText(holder.tvNazwa);
-        holder.rl_item_produkt.setBackgroundColor(R.color.colorPrimary);
+    //    holder.rl_item_produkt.setBackgroundColor(R.color.colorPrimary);
     }
 
     private void updateProduktName(String name, String oldName, int position) {

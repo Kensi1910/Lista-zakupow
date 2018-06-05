@@ -14,10 +14,7 @@
             android:id="@+id/lista_zakupow"
             android:icon="@drawable/lista_icon"
             android:title="Listy Zakupów" />
-        <item
-            android:id="@+id/edytuj_liste"
-            android:icon="@drawable/edytuj1_icon"
-            android:title="Edytuj Liste" />
+
         <item
             android:id="@+id/usun_listy"
             android:icon="@drawable/usun_icon"
@@ -31,10 +28,6 @@
     <item android:title="Kontakt">
         <menu>
 
-            <item
-                android:id="@+id/wyslij"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Wyslij" />
             <item
                 android:id="@+id/o_autorach"
                 android:icon="@drawable/o_autorach2_icon"

@@ -150,21 +150,19 @@ public class PrzepisyAdapter extends BaseAdapter {
                             "oliwa do smażenia\n\n"+
                             "woda 300 ml",
                     //skladnik 8
-                    "starty ser mozzarella 150 g\n\n"+
+                    "ser mozzarella 150 g\n\n"+
                             "papryczki jalapeno 50 g\n\n"+
                             "fasola z puszki 1 opak.\n\n"+
                             "boczek 6 plastrów \n\n"+
-                            "mąka do podsypania ciasta 50 g\n\n"+
-                            "Przyprawa kostkach Czosnek 1 szt.\n\n"+
+                            "mąka do  ciasta 50 g\n\n"+
+                            "Przyprawa Czosnek 1 szt.\n\n"+
                             "oliwa z oliwek 2 łyżki\n\n"+
-                            "oscypek 1 szt.\n\n\n"+
-                            "\t\t sos do pizzy\n\n"+
+                            "oscypek 1 szt.\n\n"+
                             "koncentrat pomidorowy 100 g\n\n"+
                             "cukier 1 łyżeczka\n\n"+
                             "sól 1 łyżeczka\n\n"+
                             "Oregano  2 łyżeczki\n\n"+
-                            "woda \n\n\n"+
-                            " \t\t ciasto do pizzy \n\n"+
+                            "woda \n\n"+
                             "mąka 1 kg\n\n"+
                             "woda 500 ml \n\n"+
                             "cukier 25 g\n\n"+

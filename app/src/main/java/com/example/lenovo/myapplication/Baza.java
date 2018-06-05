@@ -826,14 +826,14 @@ public class Baza extends SQLiteOpenHelper {
         initStartKategorie(drawable29,"motoryzacja",db);
 
 
-        initStartPrzepisy(drawableP1,"Naleśniki z kurczakiem w sosie bolognese", opis[0], db);
+        initStartPrzepisy(drawableP1,"Naleśniki", opis[0], db);
         initStartPrzepisy(drawableP2,"Kurczak po chińsku", opis[1], db);
         initStartPrzepisy(drawableP3,"Zupa meksykańska", opis[2], db);
         initStartPrzepisy(drawableP4,"Jesienna zupa", opis[3], db);
         initStartPrzepisy(drawableP5,"Krem serowy", opis[4], db);
-        initStartPrzepisy(drawableP6,"Lasagne z mięsa mielonego", opis[5], db);
+        initStartPrzepisy(drawableP6,"Lasagne", opis[5], db);
         initStartPrzepisy(drawableP7,"Pizza góralska", opis[6], db);
-        initStartPrzepisy(drawableP8,"Tagliatelle z sosem czosnkowym i grillowanym kurczakiem", opis[7], db);
+        initStartPrzepisy(drawableP8,"Tagliatelle", opis[7], db);
     }
 
     @Override
@@ -1517,6 +1517,63 @@ public class Baza extends SQLiteOpenHelper {
         return lstProdukt;
     }
 
+    public List<Produkt> getAddedSelectedAndNotSecectedProductyID(String id_listy) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_LISTA_PRODUKTOW + " WHERE " + KEY_ID_LISTA + " = " + id_listy +
+                " AND " + KEY_SELECTED + " = " + 0;
+        String selectQuery3 = "SELECT * FROM " + TABLE_LISTA_PRODUKTOW + " WHERE " + KEY_ID_LISTA + " = " + id_listy +
+                " AND " + KEY_SELECTED + " = " + 1;
+        List<Produkt> lstProdukt = new ArrayList<Produkt>();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex(KEY_ID_PRODUKT));
+                String selectQuery2 = "SELECT * FROM " + TABLE_PRODUKTY + " WHERE " + KEY_ID + " = " + id;
+                Cursor c = db.rawQuery(selectQuery2, null);
+                if (c.moveToFirst()) {
+                    do {
+                        Produkt pdt = new Produkt();
+                        pdt.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+                        pdt.setName(c.getString(c.getColumnIndex(KEY_PRODUKT)));
+                        pdt.setCena_min(c.getFloat(c.getColumnIndex(KEY_CENA_MIN)));
+                        pdt.setCena_max(c.getFloat(c.getColumnIndex(KEY_CENA_MAX)));
+                        pdt.setId_kategoria(c.getInt(c.getColumnIndex(KEY_ID_KATEGORIA)));
+                        //      pdt.setIlosc(c.getFloat(c.getColumnIndex(KEY_ILOSC)));
+                        //      pdt.setJednostka(c.getString(c.getColumnIndex(KEY_JEDNOSTKA)));
+
+                        // adding category list
+                        lstProdukt.add(pdt);
+                    } while (c.moveToNext());
+                }
+                c.close();
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        Cursor cursor2 = db.rawQuery(selectQuery3, null);
+        if (cursor2.moveToFirst()) {
+            do {
+                int id = cursor2.getInt(cursor2.getColumnIndex(KEY_ID_PRODUKT));
+                String selectQuery2 = "SELECT * FROM " + TABLE_PRODUKTY + " WHERE " + KEY_ID + " = " + id;
+                Cursor c = db.rawQuery(selectQuery2, null);
+                if (c.moveToFirst()) {
+                    do {
+                        Produkt pdt = new Produkt();
+                        pdt.setId(c.getInt(c.getColumnIndex(KEY_ID)));
+                        pdt.setName(c.getString(c.getColumnIndex(KEY_PRODUKT)));
+                        pdt.setCena_min(c.getFloat(c.getColumnIndex(KEY_CENA_MIN)));
+                        pdt.setCena_max(c.getFloat(c.getColumnIndex(KEY_CENA_MAX)));
+                        pdt.setId_kategoria(c.getInt(c.getColumnIndex(KEY_ID_KATEGORIA)));
+
+                        lstProdukt.add(pdt);
+                    } while (c.moveToNext());
+                }
+                c.close();
+            } while (cursor2.moveToNext());
+        }
+        cursor2.close();
+        return lstProdukt;
+    }
 
     public String getIDProdukt2(String name) throws SQLException {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -1555,6 +1612,42 @@ public class Baza extends SQLiteOpenHelper {
 
         return b;
     }
+
+    /*
+    public boolean isProduktInAddedProduktsList(String name) throws SQLException {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Boolean b = true;
+        String selectQuery = "SELECT * FROM " + TABLE_PRODUKTY + " WHERE " + KEY_PRODUKT + " = '" + name + "'";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        int id = cursor.getInt(cursor.getColumnIndex(KEY_ID));
+        cursor.close();
+        String selectQuery2 = "SELECT * FROM " + TABLE_LISTA_PRODUKTOW + " WHERE " + KEY_ID_PRODUKT + " = " + id ;
+        Cursor c = db.rawQuery(selectQuery2, null);
+        if (c.getCount() == 0) {
+            b = false;
+        }
+       // int id2 = cursor.getInt(c.getColumnIndex(KEY_ID));
+        c.close();
+        return b;
+    }
+
+    public int getIdProduktInAddedProduktsList(String name) throws SQLException {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_PRODUKTY + " WHERE " + KEY_PRODUKT + " = '" + name + "'";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        int id = cursor.getInt(cursor.getColumnIndex(KEY_ID));
+        int id_produktu = 0;
+        cursor.close();
+        String selectQuery2 = "SELECT * FROM " + TABLE_LISTA_PRODUKTOW + " WHERE " + KEY_ID_PRODUKT + " = " + id ;
+        Cursor c = db.rawQuery(selectQuery2, null);
+        if (c.getCount() != 0) {
+           id_produktu = c.getInt(c.getColumnIndex(KEY_ID_PRODUKT));
+        }
+        // int id2 = cursor.getInt(c.getColumnIndex(KEY_ID));
+        c.close();
+        return id_produktu;
+    }
+*/
     public String getIDListy(String name) throws SQLException {
         SQLiteDatabase db = this.getReadableDatabase();
 

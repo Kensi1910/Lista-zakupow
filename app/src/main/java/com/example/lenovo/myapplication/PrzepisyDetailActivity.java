@@ -211,7 +211,7 @@ public class PrzepisyDetailActivity extends AppCompatActivity {
         for (int i = 0; i < lstLista.size(); i++) {
             lstString.add(lstLista.get(i).getName());
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.dialog_spinner_choose_list, null);
         builder.setTitle("Dodaj do:");
         final Spinner spinner = (Spinner) view.findViewById(R.id.spinner_choose_list);
@@ -282,15 +282,26 @@ public class PrzepisyDetailActivity extends AppCompatActivity {
                             jednostka = " ";
                         }
 
-
+                        Boolean b = false;
                         Produkt produkt = new Produkt(nazwa, 0.0f, 0.0f, 0, Float.parseFloat(ilosc), jednostka);
                      //   Produkt produkt = new Produkt(line2, 0.0f, 0.0f, 0, 0.0f, " ");
                         if (!baza.isProdukt(nazwa)) {
                             baza.createProdukt(produkt);
                         }
-                        skladnikiList.add(produkt);
-                        Produkt p =  baza.getProduktByID(Integer.parseInt(baza.getIDProdukt2(skladnikiList.get(j).getName())));
-                        baza.createListaProdoktow2(id_listyy, p.getId(),Float.parseFloat(ilosc), jednostka,0);
+                    //    else {
+                     //      b = baza.isProduktInAddedProduktsList(nazwa);
+                     //   }
+
+                      //  if(b) {
+                       //     int id_produktu = baza.getIdProduktInAddedProduktsList(nazwa);
+                        //    baza.updateIlosc(2.0f, id_produktu, id_listyy);
+                      //  }
+                       // else {
+                            skladnikiList.add(produkt);
+                            Produkt p =  baza.getProduktByID(Integer.parseInt(baza.getIDProdukt2(skladnikiList.get(j).getName())));
+                            baza.createListaProdoktow2(id_listyy, p.getId(),Float.parseFloat(ilosc), jednostka,0);
+                      //  }
+
                         j++;
                         ilosc = "0";
                         jednostka = " ";
